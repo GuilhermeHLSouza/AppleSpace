@@ -1,0 +1,105 @@
+﻿@model List<Applespace.Models.Produtos>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+
+
+
+<section class="container py-5">
+    <h2 class="text-center mb-4">iPhones</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 1))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.nome</h5>
+                        <p class="card-text fw-bold text-primary">R$ @prod.valor.ToString("F2")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 class="text-center mb-4">iPads</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 2))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.nome</h5>
+                        <p class="card-text fw-bold text-primary">R$ @prod.valor.ToString("F2")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 class="text-center mb-4">Apple Watch</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 3))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.nome</h5>
+                        <p class="card-text fw-bold text-primary">R$ @prod.valor.ToString("F2")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 class="text-center mb-4">AirPods</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 4))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.nome</h5>
+                        <p class="card-text fw-bold text-primary">R$ @prod.valor.ToString("F2")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 class="text-center mb-4">MacBooks</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 5))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title">@prod.nome</h5>
+                        <p class="card-text fw-bold text-primary">R$ @prod.valor.ToString("F2")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+<script>
+    function AbrirProduto(id){
+         window.location.href = '/Home/Produto/' + id;
+    }
+</script>
+

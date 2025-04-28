@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Produtos>
+
+@{
+    ViewData["Title"] = "Lista de Produtos";
+    var categoria = Model.Select(p => p.Categoria).Distinct().OrderBy(c => c).ToList();
+    Layout = "_LayoutLogin";
+    
+}
+
+<h1>Lista de Produtos</h1>
+
+<table>
+    <thead>
+        <tr>
+
+            <th>Codigo de Barras</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Categoria</th>
+            <th>Quantidade</th>
+            <th>Administrador</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model)
+        {
+            <tr>
+                <td>@produto.codBarra</td>
+                <td>@produto.nome</td>
+                <td>@produto.valor</td>
+                <td>@produto.estoque</td>
+                <td>@produto.idCate</td>
+                <td>@produto.idAdm</td>
+                <td>
+                    <form asp-action="Alterar" asp-route-id="@produto.codBarra" method="post">
+                        <button type="submit">Alterar</button>
+                    </form>
+                </td>
+                <td>
+                    <form asp-action="Remover" asp-route-id="@produto.codBarra" method="post">
+                        <button type="submit">Remover</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="CadastrarProdutos">Cadastrar Novo Produto</a>
+

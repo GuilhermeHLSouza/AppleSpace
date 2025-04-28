@@ -1,0 +1,16 @@
+﻿@model Applespace.Models.Produtos;
+@{
+    ViewData["Title"] = "Applespace";
+} 
+
+<div style="max-width: 800px; margin: auto; text-align: center; padding: 20px;">
+    <h1>@Model.nome</h1>
+
+    <img src="@Model.img" alt="@Model.nome" style="max-width: 300px; margin-bottom: 20px;" />
+
+    <p><strong>Descrição:</strong> @Model.descricao</p>
+    <p><strong>Valor:</strong> @Model.valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</p>
+    <p><strong>Estoque disponível:</strong> @Model.estoque</p>
+
+    <a href="@Url.Action("Index", "Home")" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#000; color:#fff; text-decoration:none; border-radius:5px;">Voltar</a>
+</div>

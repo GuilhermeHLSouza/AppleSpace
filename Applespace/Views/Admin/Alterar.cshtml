@@ -1,0 +1,43 @@
+﻿@model Applespace.Models.Produtos
+
+@{
+    ViewData["Title"] = "Alterar Produto";
+    Layout = "_LayoutLogin";
+}
+
+<h1>Cadastrar Produto</h1>
+
+<form asp-action="AlterarProduto" method="post">
+    <div>
+        <input type="hidden" asp-for="codBarra" />
+    </div>
+    <div>
+        <label>Nome:</label>
+        <input asp-for="nome" />
+    </div>
+    <div>
+        <label>Preço:</label>
+        <input asp-for="valor" />
+    </div>
+    <div>
+        <label>Categoria:</label>
+        <input asp-for="idCate" />
+    </div>
+    <div>
+        <label>Descrição:</label>
+        <input asp-for="descricao" />
+    </div>
+    <div>
+        <label>Link imagem:</label>
+        <input asp-for="img" />
+    </div>
+    <div>
+        <label>Produtos no estoque:</label>
+        <input asp-for="estoque" />
+    </div>
+    <div>
+        <label>Funcionario a cadastrar:</label>
+        <input asp-for="idAdm" />
+    </div>
+    <button type="submit">Salvar</button>
+</form>
