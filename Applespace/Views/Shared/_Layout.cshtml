@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -114,19 +114,29 @@
             border-radius: 2rem;
             padding: .5rem 1rem;
         }
+
+        #main-content {
+            padding-top: 3rem;
+        }
+
+        .search-input {
+            border-radius: 2rem; 
+        }
     </style>
 </head>
 <body data-bs-spy="scroll" data-bs-target="#productNav" data-bs-offset="80" tabindex="0">
 
-    <header class="sticky-top">
+    <header class="fixed-top">
         <nav class="navbar navbar-dark bg-dark py-3">
             <div class="container-xl d-flex align-items-center gap-4">
                 <a class="navbar-brand" href="/">
                     <img src="/img/maca.png" alt="AppleSpace" width="32" height="32" />
                 </a>
-                <form class="search-wrapper d-flex" role="search">
-                    <input class="form-control form-control-lg rounded-pill" type="search" placeholder="Pesquisar produtos" aria-label="Search" />
-                </form>
+                <div class="search-bar flex-fill mx-4 position-relative">
+                    <input type="text" class="form-control search-input ps-5 pe-5" placeholder="Buscar produtos..." />
+                    <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+                    <i class="bi bi-list position-absolute top-50 end-0 translate-middle-y me-3"></i>
+                </div>
                 <div class="d-flex align-items-center gap-4">
                     <a href="/Carrinho"><img src="/img/cart.png" width="28" height="28" alt="Carrinho" /></a>
                     <a href="/Home/Login"><img src="/img/user.png" width="28" height="28" alt="Conta" /></a>
@@ -147,8 +157,9 @@
         </nav>
     </header>
 
-    
-    @RenderBody()
+    <div id="main-content" class="container my-5">
+        @RenderBody()
+    </div>
     
 
     <footer class="bg-dark text-light pt-5 pb-3 mt-auto w-100">
@@ -178,7 +189,7 @@
                 <div class="col-6 col-md-2">
                     <h5 class="mb-3">Conta</h5>
                     <ul class="list-unstyled small">
-                        <li><a class="text-light text-decoration-none" href="/Conta">Minha Conta</a></li>
+                        <li><a class="text-light text-decoration-none" href="/Home/Perfil">Minha Conta</a></li>
                         <li><a class="text-light text-decoration-none" href="#">Meus Pedidos</a></li>
                         <li><a class="text-light text-decoration-none" href="#">Meus Dados</a></li>
                     </ul>
