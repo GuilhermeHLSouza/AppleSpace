@@ -30,8 +30,6 @@
             min-height: 100vh;
         }
 
-        
-
         .navbar-brand img {
             filter: brightness(0) invert(1);
         }
@@ -53,12 +51,29 @@
                 }
 
         .product-card {
-            border: none;
+            border: 1px solid #ddd;
             border-radius: 1rem;
             box-shadow: 0 2px 8px rgba(0,0,0,.08);
-            transition: transform .2s;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
 
+            .product-card:hover {
+                border-color: #2979FF;
+                box-shadow: 0 0 15px rgba(41, 121, 255, 0.25);
+                transform: translateY(-5px);
+            }
+
+            .product-card .btn {
+                border-radius: 2rem;
+                padding: .5rem 1rem;
+                transition: all 0.3s ease;
+            }
+
+                .product-card .btn:hover {
+                    background-color: #2979FF;
+                    color: #fff;
+                    border-color: #2979FF;
+                }
 
         /* hero images slightly shorter */
         #heroCarousel .carousel-item img {
@@ -73,6 +88,7 @@
             aspect-ratio: 1/1;
             object-fit: contain;
         }
+
         /* wider centered search */
         .search-wrapper {
             flex: 1 1 0;
@@ -110,17 +126,12 @@
                 margin: auto;
             }
 
-        .product-card .btn {
-            border-radius: 2rem;
-            padding: .5rem 1rem;
-        }
-
         #main-content {
             padding-top: 3rem;
         }
 
         .search-input {
-            border-radius: 2rem; 
+            border-radius: 2rem;
         }
 
         .carousel-inner img {
@@ -134,6 +145,7 @@
             text-transform: uppercase;
         }
     </style>
+
 </head>
 <body data-bs-spy="scroll" data-bs-target="#productNav" data-bs-offset="80" tabindex="0">
 
