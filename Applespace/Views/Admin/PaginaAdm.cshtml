@@ -7,44 +7,49 @@
     
 }
 
-<h1>Lista de Produtos</h1>
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">Lista de Produtos</h2>
 
-<table>
-    <thead>
-        <tr>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>Código de Barras</th>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Categoria</th>
+                    <th>Quantidade</th>
+                    <th>Administrador</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var produto in Model)
+                {
+                    <tr>
+                        <td>@produto.codBarra</td>
+                        <td>@produto.nome</td>
+                        <td>R$ @produto.valor.ToString("F2")</td>
+                        <td>@produto.idCate</td>
+                        <td>@produto.estoque</td>
+                        <td>@produto.idAdm</td>
+                        <td class="d-flex justify-content-center gap-2">
+                            <form asp-action="Alterar" asp-route-id="@produto.codBarra" method="post">
+                                <button type="submit" class="btn btn-sm btn-warning">Alterar</button>
+                            </form>
+                            <form asp-action="Remover" asp-route-id="@produto.codBarra" method="post">
+                                <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-            <th>Codigo de Barras</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Categoria</th>
-            <th>Quantidade</th>
-            <th>Administrador</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var produto in Model)
-        {
-            <tr>
-                <td>@produto.codBarra</td>
-                <td>@produto.nome</td>
-                <td>@produto.valor</td>
-                <td>@produto.estoque</td>
-                <td>@produto.idCate</td>
-                <td>@produto.idAdm</td>
-                <td>
-                    <form asp-action="Alterar" asp-route-id="@produto.codBarra" method="post">
-                        <button type="submit">Alterar</button>
-                    </form>
-                </td>
-                <td>
-                    <form asp-action="Remover" asp-route-id="@produto.codBarra" method="post">
-                        <button type="submit">Remover</button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="text-center mt-4">
+        <a asp-action="CadastrarProdutos" class="btn btn-primary rounded-pill px-4">Cadastrar Novo Produto</a>
+    </div>
+</div>
 
-<a asp-action="CadastrarProdutos">Cadastrar Novo Produto</a>
 
