@@ -49,7 +49,7 @@ namespace Applespace.Repositorio.Produto
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
                 cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
-                cmd.Parameters.Add("@descricao", MySqlDbType.VarChar).Value = produto.descricao;
+                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.descricao;
                 cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.estoque;
                 cmd.Parameters.Add("@codigo", MySqlDbType.Int32).Value = produto.codBarra;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
@@ -66,7 +66,7 @@ namespace Applespace.Repositorio.Produto
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
                 cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
-                cmd.Parameters.Add("@descricao", MySqlDbType.VarChar).Value = produto.descricao;
+                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.descricao;
                 cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.estoque;
                 cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = produto.idAdm;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;

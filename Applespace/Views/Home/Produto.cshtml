@@ -1,16 +1,192 @@
 ﻿@model Applespace.Models.Produtos;
 @{
     ViewData["Title"] = "Applespace";
-} 
 
-<div style="max-width: 800px; margin: auto; text-align: center; padding: 20px;">
-    <h1>@Model.nome</h1>
+    var imagens = new List<string> {
+        Model.img, // imagem principal
+        "https://link-da-imagem-branca.jpg",
+        "https://link-da-imagem-azul.jpg",
+        "https://link-da-imagem-rosa.jpg"
+    };
+}
 
-    <img src="@Model.img" alt="@Model.nome" style="max-width: 300px; margin-bottom: 20px;" />
+<style>
+    .produto-container {
+        max-width: 1300px;
+        margin: 60px auto;
+        padding: 40px;
+        background: #f5f5f7;
+        border-radius: 24px;
+    }
 
-    <p><strong>Descrição:</strong> @Model.descricao</p>
-    <p><strong>Valor:</strong> @Model.valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</p>
-    <p><strong>Estoque disponível:</strong> @Model.estoque</p>
+    .breadcrumb a {
+        color: #000;
+        font-weight: 600;
+        text-decoration: none;
+    }
 
-    <a href="@Url.Action("Index", "Home")" style="display:inline-block; margin-top:20px; padding:10px 20px; background:#000; color:#fff; text-decoration:none; border-radius:5px;">Voltar</a>
+        .breadcrumb a {
+            color: #000
+            text-decoration: none;
+        }
+
+
+        .breadcrumb a:hover {
+            color: #000;
+            text-decoration: none;
+        }
+
+    .thumb-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+        margin-right: 25px;
+    }
+
+        .thumb-container img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #fff;
+            border: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+            .thumb-container img:hover,
+            .thumb-container img.active {
+                border-color: #007bff;
+            }
+
+    .produto-img {
+        background: #fff;
+        padding: 20px;
+        border-radius: 24px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        max-width: 100%;
+        max-height: 500px;
+        object-fit: contain;
+    }
+
+    .produto-nome {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+    }
+
+    .produto-preco {
+        font-size: 2rem;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .produto-estoque {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    .btn-comprar {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 18px 50px;
+        border-radius: 50px;
+        font-size: 1.3rem;
+        font-weight: 600;
+        transition: 0.3s;
+        width: 100%;
+        max-width: 340px;
+    }
+
+        .btn-comprar:hover {
+            background-color: #0056b3;
+        }
+
+    .btn-voltar {
+        margin-top: 30px;
+        border: 1px solid #000;
+        background: transparent;
+        padding: 10px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        color: #000;
+        font-size: 1rem;
+        display: inline-block;
+    }
+
+        .btn-voltar:hover {
+            background-color: #e9ecef;
+        }
+
+    .descricao-produto {
+        max-width: 1300px;
+        margin: 50px auto 100px;
+        padding: 30px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+
+        .descricao-produto h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .descricao-produto p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+        }
+</style>
+
+<div class="container produto-container">
+    <div class="breadcrumb">
+        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Início</a> &gt;
+        <a href="@Url.Action("Index", "Home")#iphones">iPhones</a> &gt;
+        @Model.nome
+    </div>
+
+    <div class="row align-items-center g-5">
+        <div class="col-md-6 d-flex">
+            <div class="thumb-container">
+                @foreach (var img in imagens)
+                {
+                    <img src="@img" class="thumb-img @(img == Model.img ? "active" : "")" onclick="trocarImagem(this)" />
+                }
+            </div>
+            <div class="text-center flex-grow-1">
+                <img id="imagemPrincipal" src="@Model.img" alt="@Model.nome" class="produto-img img-fluid" />
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h1 class="produto-nome">@Model.nome</h1>
+            <p class="produto-preco">@Model.valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</p>
+            <p class="produto-estoque">Estoque disponível: @Model.estoque</p>
+
+            <form method="post" action="@Url.Action("AdicionarAoCarrinho", "Carrinho", new { id = @Model.codBarra })">
+                <button type="submit" class="btn btn-comprar">Comprar</button>
+            </form>
+
+            <a href="@Url.Action("Index", "Home")" class="btn-voltar mt-3">Voltar</a>
+        </div>
+    </div>
 </div>
+
+<div class="descricao-produto">
+    <h2>Descrição do Produto</h2>
+    <p>@Model.descricao</p>
+</div>
+
+<script>
+    function trocarImagem(elemento) {
+        document.getElementById('imagemPrincipal').src = elemento.src;
+        document.querySelectorAll('.thumb-img').forEach(e => e.classList.remove('active'));
+        elemento.classList.add('active');
+    }
+</script>
