@@ -85,3 +85,4 @@ FOREIGN KEY(Id_Cliente) REFERENCES Clientes (Id_Cliente)
 ALTER TABLE Endereços ADD FOREIGN KEY(Id_Entrega) REFERENCES Entregas (Id_Entrega);
 ALTER TABLE Endereços ADD FOREIGN KEY(Id_Cliente) REFERENCES Clientes (Id_Cliente);
 ALTER TABLE Venda ADD FOREIGN KEY(Id_Carrinho) REFERENCES Carrinho (Id_Carrinho);
+ALTER TABLE Produtos MODIFY Descricao TEXT;
