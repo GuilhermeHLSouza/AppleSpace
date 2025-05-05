@@ -3,11 +3,8 @@
     ViewData["Title"] = "Inicio";
 }
 
-
-
-
 <section class="container py-5">
-    <h2 class="text-center mb-4">iPhones</h2>
+    <h2 class="fw-bold fs-2 mb-4 border-bottom pb-2">iPhones</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 1))
         {
@@ -18,8 +15,7 @@
                         <h5 class="card-title fw-semibold">@prod.nome</h5>
                         <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
                         <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra"
-                           class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -30,7 +26,7 @@
 </section>
 
 <section class="container py-5">
-    <h2 class="text-center mb-4">iPads</h2>
+    <h2 class="fw-bold fs-2 mb-4 border-bottom pb-2">iPads</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 2))
         {
@@ -41,8 +37,7 @@
                         <h5 class="card-title fw-semibold">@prod.nome</h5>
                         <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
                         <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra"
-                           class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -53,7 +48,7 @@
 </section>
 
 <section class="container py-5">
-    <h2 class="text-center mb-4">Apple Watch</h2>
+    <h2 class="fw-bold fs-2 mb-4 border-bottom pb-2">Apple Watch</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 3))
         {
@@ -64,8 +59,7 @@
                         <h5 class="card-title fw-semibold">@prod.nome</h5>
                         <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
                         <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra"
-                           class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -76,7 +70,7 @@
 </section>
 
 <section class="container py-5">
-    <h2 class="text-center mb-4">AirPods</h2>
+    <h2 class="fw-bold fs-2 mb-4 border-bottom pb-2">AirPods</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 4))
         {
@@ -87,8 +81,7 @@
                         <h5 class="card-title fw-semibold">@prod.nome</h5>
                         <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
                         <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra"
-                           class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -99,7 +92,7 @@
 </section>
 
 <section class="container py-5">
-    <h2 class="text-center mb-4">MacBooks</h2>
+    <h2 class="fw-bold fs-2 mb-4 border-bottom pb-2">MacBooks</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 5))
         {
@@ -110,8 +103,7 @@
                         <h5 class="card-title fw-semibold">@prod.nome</h5>
                         <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
                         <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra"
-                           class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
