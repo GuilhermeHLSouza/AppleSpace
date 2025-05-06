@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AppleSpace</title>
 
-    <!-- Bootstrap core -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AppleSpace.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
 
     <style>
         html, body {
@@ -39,16 +39,29 @@
             white-space: nowrap;
         }
 
-            #productNav .nav-link {
-                color: #fff;
-                font-weight: 500;
-                padding: .75rem 1.25rem;
-            }
+        #productNav .nav-link {
+            color: #fff;
+            font-weight: 500;
+            padding: .75rem 1.25rem;
+        }
 
-                #productNav .nav-link.active {
-                    color: var(--as-accent);
-                    border-bottom: 2px solid var(--as-accent);
-                }
+        #productNav .nav-link.active {
+            color: var(--as-accent);
+            border-bottom: 2px solid var(--as-accent);
+        }
+
+        .search-bar {
+            flex: 1 1 auto;
+            max-width: 450px;
+        }
+
+        .search-input {
+            width: 100%;
+            min-width: 180px;
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+            border-radius: 2rem;
+        }
 
         .product-card {
             border: 1px solid #ddd;
@@ -57,112 +70,54 @@
             transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
         }
 
-            .product-card:hover {
-                border-color: #2979FF;
-                box-shadow: 0 0 15px rgba(41, 121, 255, 0.25);
-                transform: translateY(-5px);
-            }
-
-            .product-card .btn {
-                border-radius: 2rem;
-                padding: .5rem 1rem;
-                transition: all 0.3s ease;
-            }
-
-                .product-card .btn:hover {
-                    background-color: #2979FF;
-                    color: #fff;
-                    border-color: #2979FF;
-                }
-
-        /* hero images slightly shorter */
-        #heroCarousel .carousel-item img {
-            width: 100%;
-            height: auto;
-            max-height: 70vh;
-            object-fit: contain;
+        .product-card:hover {
+            border-color: #2979FF;
+            box-shadow: 0 0 15px rgba(41, 121, 255, 0.25);
+            transform: translateY(-5px);
         }
 
-        .product-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: contain;
+        .product-card .btn {
+            border-radius: 2rem;
+            padding: .5rem 1rem;
+            transition: all 0.3s ease;
         }
 
-        /* wider centered search */
-        .search-wrapper {
-            flex: 1 1 0;
-            max-width: 450px;
+        .product-card .btn:hover {
+            background-color: #2979FF;
+            color: #fff;
+            border-color: #2979FF;
         }
-
-            .search-wrapper input {
-                min-width: 300px;
-            }
-
-        #benefits {
-            margin-left: 0;
-            margin-right: 0;
-        }
-
-        .benefit-card {
-            border: none;
-            border-radius: 1.5rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,.06);
-            transition: transform .2s;
-        }
-
-            .benefit-card:hover {
-                transform: translateY(-4px);
-            }
-
-        #benefits {
-            margin: 0;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-            #benefits .benefit-wrapper {
-                max-width: 1400px;
-                margin: auto;
-            }
 
         #main-content {
             padding-top: 3rem;
         }
 
-        .search-input {
-            border-radius: 2rem;
-        }
-
         .carousel-inner img {
-            max-height: 600px;
+            max-height: 500px;
             object-fit: cover;
         }
 
         .highlight-bar {
-            background-color: #2979FF; /* Azul da sua marca */
+            background-color: #2979FF;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
     </style>
-
 </head>
-<body data-bs-spy="scroll" data-bs-target="#productNav" data-bs-offset="80" tabindex="0">
-
+<body>
     <header class="fixed-top">
         <nav class="navbar navbar-dark bg-dark py-3">
-            <div class="container-xl d-flex align-items-center gap-4">
+            <div class="container-xl d-flex flex-wrap align-items-center gap-4">
                 <a class="navbar-brand" href="/">
                     <img src="/img/maca.png" alt="AppleSpace" width="32" height="32" />
                 </a>
-                <div class="search-bar flex-fill mx-4 position-relative">
-                    <input type="text" class="form-control search-input ps-5 pe-5" placeholder="Buscar produtos..." />
+                <form method="get" action="/Home/Index" class="search-bar position-relative">
+                    <input type="text" class="form-control search-input" name="search" placeholder="Buscar produtos..." />
                     <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
-                    <i class="bi bi-list position-absolute top-50 end-0 translate-middle-y me-3"></i>
-                </div>
+                </form>
                 <div class="d-flex align-items-center gap-4">
                     <a href="/Carrinho"><img src="/img/cart.png" width="28" height="28" alt="Carrinho" /></a>
-                    <a href="/Home/Login"><img src="/img/user.png" width="28" height="28" alt="Conta" /></a>
+                    <a href="/Home/Perfil"><img src="/img/user.png" width="28" height="28" alt="Conta" /></a>
                 </div>
             </div>
         </nav>
@@ -179,18 +134,14 @@
             </div>
         </nav>
     </header>
-    
-    
 
     <div id="main-content" class="container my-5">
         @RenderBody()
     </div>
-    
 
     <footer class="bg-dark text-light pt-5 pb-3 mt-auto w-100">
         <div class="container-xl">
             <div class="row gy-4">
-                <!-- Redes Sociais -->
                 <div class="col-12 col-md-3">
                     <h5 class="mb-3">Redes&nbsp;Sociais</h5>
                     <ul class="list-unstyled d-flex gap-3 fs-4">
@@ -199,8 +150,6 @@
                         <li><a class="text-light" href="http://wa.link/y3cbp8" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a></li>
                     </ul>
                 </div>
-
-                <!-- Empresa -->
                 <div class="col-6 col-md-2">
                     <h5 class="mb-3">Empresa</h5>
                     <ul class="list-unstyled small">
@@ -209,8 +158,6 @@
                         <li><a class="text-light text-decoration-none" href="#">Promoções</a></li>
                     </ul>
                 </div>
-
-                <!-- Conta -->
                 <div class="col-6 col-md-2">
                     <h5 class="mb-3">Conta</h5>
                     <ul class="list-unstyled small">
@@ -219,8 +166,6 @@
                         <li><a class="text-light text-decoration-none" href="#">Meus Dados</a></li>
                     </ul>
                 </div>
-
-                <!-- Ajuda -->
                 <div class="col-12 col-md-3">
                     <h5 class="mb-3">Ajuda</h5>
                     <ul class="list-unstyled small">
@@ -230,7 +175,6 @@
                     </ul>
                 </div>
             </div>
-
             <hr class="border-secondary my-4" />
             <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small">
                 <span>&copy; 2025 AppleSpace - Todos os direitos reservados | CNPJ 18.053.365/0001-40 <br> R. Guaipá, 678 - Vila Leopoldina, São Paulo - SP, 05089-000</span>
@@ -239,14 +183,21 @@
         </div>
     </footer>
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
-
-    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
-    
+
+    @section Styles {
+        <style>
+            @Html.Raw("@media (max-width: 768px) {")
+                .search-bar { margin: 0; order: 3; width: 100%; }
+                .search-input { padding: 0.5rem 2.5rem; }
+                .navbar .d-flex.align-items-center.gap-4 { flex-wrap: wrap; gap: 1rem !important; justify-content: center; }
+                #productNav { overflow-x: auto; flex-wrap: nowrap; }
+                #productNav .nav-link { padding: 0.5rem 1rem; font-size: 0.95rem; white-space: nowrap; }
+            @Html.Raw("}")
+        </style>
+    }
 </body>
 </html>

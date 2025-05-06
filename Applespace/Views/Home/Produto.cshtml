@@ -3,10 +3,10 @@
     ViewData["Title"] = "Applespace";
 
     var imagens = new List<string> {
-        Model.img, // imagem principal
-        "https://link-da-imagem-branca.jpg",
-        "https://link-da-imagem-azul.jpg",
-        "https://link-da-imagem-rosa.jpg"
+        Model.img,
+        "https://imgs.casasbahia.com.br/1570828544/1xg.jpg?imwidth=500",
+        "https://imgs.casasbahia.com.br/1570828544/1xg.jpg?imwidth=500",
+        "https://imgs.casasbahia.com.br/1570828544/1xg.jpg?imwidth=500"
     };
 }
 
@@ -17,6 +17,7 @@
         padding: 40px;
         background: #f5f5f7;
         border-radius: 24px;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.03);
     }
 
     .breadcrumb a {
@@ -25,15 +26,8 @@
         text-decoration: none;
     }
 
-        .breadcrumb a {
-            color: #000;
-            text-decoration: none;
-        }
-
-
         .breadcrumb a:hover {
-            color: #000;
-            text-decoration: none;
+            color: #007bff;
         }
 
     .thumb-container {
@@ -68,34 +62,58 @@
         max-width: 100%;
         max-height: 500px;
         object-fit: contain;
+        cursor: zoom-in;
+        transition: transform 0.2s ease;
     }
+
+        .produto-img:hover {
+            transform: scale(1.02);
+        }
 
     .produto-nome {
-        font-size: 2.5rem;
+        font-size: 2.3rem;
         font-weight: 800;
-        margin-bottom: 20px;
-    }
-
-    .produto-preco {
-        font-size: 2rem;
-        color: #007bff;
-        font-weight: bold;
         margin-bottom: 15px;
     }
 
+    .produto-preco {
+        font-size: 1.8rem;
+        color: #007bff;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
     .produto-estoque {
-        font-weight: 600;
-        font-size: 1.1rem;
-        margin-bottom: 30px;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    .rating-stars i {
+        color: #FFD700;
+        font-size: 1.3rem;
+    }
+
+    .avaliacoes {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .beneficios-produto li {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 8px;
+        list-style: none;
     }
 
     .btn-comprar {
         background-color: #007bff;
         border: none;
         color: #fff;
-        padding: 18px 50px;
+        padding: 16px 45px;
         border-radius: 50px;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         font-weight: 600;
         transition: 0.3s;
         width: 100%;
@@ -104,22 +122,6 @@
 
         .btn-comprar:hover {
             background-color: #0056b3;
-        }
-
-    .btn-voltar {
-        margin-top: 30px;
-        border: 1px solid #000;
-        background: transparent;
-        padding: 10px 30px;
-        border-radius: 30px;
-        text-decoration: none;
-        color: #000;
-        font-size: 1rem;
-        display: inline-block;
-    }
-
-        .btn-voltar:hover {
-            background-color: #e9ecef;
         }
 
     .descricao-produto {
@@ -138,18 +140,18 @@
         }
 
         .descricao-produto p {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: #333;
             line-height: 1.6;
         }
 </style>
 
 <div class="container produto-container">
-    <div class="breadcrumb">
-        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> Início</a> &gt;
+    <nav class="breadcrumb bg-transparent p-0 mb-4">
+        <a href="@Url.Action("Index", "Home")">Início</a> &gt;
         <a href="@Url.Action("Index", "Home")#iphones">iPhones</a> &gt;
         @Model.nome
-    </div>
+    </nav>
 
     <div class="row align-items-center g-5">
         <div class="col-md-6 d-flex">
@@ -160,20 +162,33 @@
                 }
             </div>
             <div class="text-center flex-grow-1">
-                <img id="imagemPrincipal" src="@Model.img" alt="@Model.nome" class="produto-img img-fluid" />
+                <img id="imagemPrincipal" src="@Model.img" alt="@Model.nome" class="produto-img img-fluid" onclick="abrirImagemModal(this.src)" />
             </div>
         </div>
 
         <div class="col-md-6">
             <h1 class="produto-nome">@Model.nome</h1>
             <p class="produto-preco">@Model.valor.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</p>
-            <p class="produto-estoque">Estoque disponível: @Model.estoque</p>
+            <p class="produto-estoque">Estoque: @Model.estoque unidades</p>
+
+            <div class="rating-stars mb-1">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-half"></i>
+                <i class="bi bi-star"></i>
+            </div>
+            <p class="avaliacoes">(32 avaliações de clientes)</p>
+
+            <ul class="beneficios-produto mb-4">
+                <li><i class="bi bi-truck"></i> Frete grátis para todo o Brasil</li>
+                <li><i class="bi bi-shield-check"></i> Garantia de 12 meses</li>
+                <li><i class="bi bi-arrow-left-right"></i> Troca garantida em 7 dias</li>
+            </ul>
 
             <form method="post" action="@Url.Action("AdicionarAoCarrinho", "Carrinho", new { id = @Model.codBarra })">
-                <button type="submit" class="btn btn-comprar">Comprar</button>
+                <button type="submit" class="btn btn-comprar">Adicionar ao carrinho</button>
             </form>
-
-            
         </div>
     </div>
 </div>
@@ -183,10 +198,28 @@
     <p>@Model.descricao</p>
 </div>
 
-<script>
-    function trocarImagem(elemento) {
-        document.getElementById('imagemPrincipal').src = elemento.src;
-        document.querySelectorAll('.thumb-img').forEach(e => e.classList.remove('active'));
-        elemento.classList.add('active');
-    }
-</script>
+<div class="modal fade" id="imagemModal" tabindex="-1" aria-labelledby="imagemModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-transparent border-0">
+            <div class="modal-body text-center p-0">
+                <img id="imagemModalSrc" src="" class="img-fluid rounded" style="max-height: 90vh; object-fit: contain;" />
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function trocarImagem(elemento) {
+            document.getElementById('imagemPrincipal').src = elemento.src;
+            document.querySelectorAll('.thumb-img').forEach(e => e.classList.remove('active'));
+            elemento.classList.add('active');
+        }
+
+        function abrirImagemModal(src) {
+            document.getElementById('imagemModalSrc').src = src;
+            var modal = new bootstrap.Modal(document.getElementById('imagemModal'));
+            modal.show();
+        }
+    </script>
+}

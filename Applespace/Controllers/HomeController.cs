@@ -24,8 +24,8 @@ namespace Applespace.Controllers
             _loginRepositorio = login;
         }
 
-        
-        public IActionResult Index()
+
+        public IActionResult Index(string search)
         {
             List<Produtos> produto = new List<Produtos>();
 
@@ -37,7 +37,7 @@ namespace Applespace.Controllers
                 {
                     while (reader.Read())
                     {
-                        produto.Add(new  Produtos
+                        produto.Add(new Produtos
                         {
                             codBarra = reader.GetInt32("Cod_Barra"),
                             valor = reader.GetDecimal("Preco"),
@@ -51,8 +51,16 @@ namespace Applespace.Controllers
                 }
             }
 
+            if (!string.IsNullOrEmpty(search))
+            {
+                produto = produto
+                    .Where(p => p.nome != null && p.nome.Contains(search, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
             return View(produto);
         }
+
 
         public IActionResult Produto(int id) {
 
