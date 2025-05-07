@@ -105,13 +105,15 @@ namespace Applespace.Controllers
         {
             return View();
         }
+        public static int x;
         [HttpPost]
         public IActionResult Login(Clientes cli)
         {
-            Clientes loginDB = _loginRepositorio.Login(cli.nome, cli.senha);
+            Clientes loginDB = _loginRepositorio.Login(cli.email, cli.senha);
 
             if (loginDB != null)
             {
+                x = loginDB.idCliente;
                 return RedirectToAction("Perfil");
             }
             else
@@ -133,35 +135,33 @@ namespace Applespace.Controllers
 
         public IActionResult Perfil()
         {
-            //Clientes cliente = null;
-            //using (MySqlConnection conn = db.GetConnection())
-            //{
-            //    string sql = @"SELECT * FROM Clientes WHERE Clientes.Id_Cliente = @id";
-            //    MySqlCommand cmd = new MySqlCommand(sql, conn);
-            //    cmd.Parameters.AddWithValue("@id", id);
-            //    using (var reader = cmd.ExecuteReader())
-            //    {
-            //        if (reader.Read())
-            //        {
-            //            cliente = new Clientes
-            //            {
-            //                idCliente = reader.GetInt32("Id_Cliente"),
-            //                senha = reader.GetString("Senha"),
-            //                nome = reader.GetString("Nome"),
-            //                email = reader.GetString("Email"),
-            //                CPF = reader.GetInt32("Cpf"),
-            //                telefone = reader.GetInt32("Telefone")
-            //            };
-            //            return View(cliente);
-            //        }
-            //        else
-            //        {
-            //            return View(nameof(Login));
-            //        }
-            //    }
-            //}
-            return View();
-            
+            Clientes cliente = null;
+            using (MySqlConnection conn = db.GetConnection())
+            {
+                string sql = @"SELECT * FROM Clientes WHERE Clientes.Id_Cliente = @id";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@id", x);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        cliente = new Clientes
+                        {
+                            idCliente = reader.GetInt32("Id_Cliente"),
+                            senha = reader.GetString("Senha"),
+                            nome = reader.GetString("Nome"),
+                            email = reader.GetString("Email"),
+                            CPF = reader.GetInt32("Cpf"),
+                            telefone = reader.GetInt32("Telefone")
+                        };
+                        return View(cliente);
+                    }
+                    else
+                    {
+                        return View(nameof(Login));
+                    }
+                }
+            }          
 
         }
 

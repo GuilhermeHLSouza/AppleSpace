@@ -1,4 +1,4 @@
-﻿@* @model Applespace.Models.Clientes *@
+﻿@model Applespace.Models.Clientes
 
 @{
     ViewData["Title"] = "Perfil do Usuário";
@@ -12,19 +12,19 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <strong>Nome:</strong> nome
+                    <strong>Nome:</strong> @Model.nome
                 </li>
                 <li class="list-group-item">
-                    <strong>Email:</strong> email
+                    <strong>Email:</strong> @Model.email
                 </li>
                 <li class="list-group-item">
-                    <strong>Senha:</strong> senha
+                    <strong>Senha:</strong> @Model.senha
                 </li>
                 <li class="list-group-item">
-                    <strong>Telefone:</strong> telefone
+                    <strong>Telefone:</strong> @Model.telefone
                 </li>
                 <li class="list-group-item">
-                    <strong>CPF:</strong> CPF
+                    <strong>CPF:</strong> @Model.CPF
                 </li>
             </ul>
 
