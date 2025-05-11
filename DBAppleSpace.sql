@@ -10,7 +10,7 @@ Senha varchar(25) NOT NULL,
 Email varchar(150) NOT NULL
 );
 
-CREATE TABLE Endereços (
+CREATE TABLE Enderecos (
 Id_Endereco smallint PRIMARY KEY auto_increment,
 CEP int NOT NULL,
 Numero tinyint NOT NULL,
@@ -64,7 +64,7 @@ Cod_Barra int PRIMARY KEY auto_increment,
 Descricao varchar(250),
 Preco double(8,2) NOT NULL,
 Nome varchar(50) NOT NULL,
-Estoque  smallint NOT NULL,
+Estoque smallint NOT NULL,
 Img varchar(500),
 Id_Adm int,
 Id_Cate int,
@@ -86,3 +86,4 @@ ALTER TABLE Endereços ADD FOREIGN KEY(Id_Entrega) REFERENCES Entregas (Id_Entre
 ALTER TABLE Endereços ADD FOREIGN KEY(Id_Cliente) REFERENCES Clientes (Id_Cliente);
 ALTER TABLE Venda ADD FOREIGN KEY(Id_Carrinho) REFERENCES Carrinho (Id_Carrinho);
 ALTER TABLE Produtos MODIFY Descricao TEXT;
+ALTER TABLE Produtos ADD EmDestaque BOOLEAN NOT NULL DEFAULT FALSE; 
