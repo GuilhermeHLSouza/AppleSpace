@@ -1,0 +1,39 @@
+﻿@model List<Carrinhos>
+
+<h2 class="text-center mb-4">Seu Carrinho</h2>
+
+@if (Model.Count == 0)
+{
+    <p class="text-center">Seu carrinho está vazio.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Subtotal</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.produtos.nome</td>
+                    <td>@item.quantidade</td>
+                    <td>R$ @item.produtos.valor</td>
+                    <td>R$ @(item.produtos.valor * item.quantidade)</td>
+                    <td>
+                        <form asp-action="DeletarCarrinho" method="post">
+                            <input type="hidden" name="id" value="@item.idCarrinho" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,7 +1,9 @@
 using System.Diagnostics;
 using System.Runtime.Intrinsics.Arm;
 using Applespace.Data;
+using Applespace.Libraries.LoginClientes;
 using Applespace.Models;
+using Applespace.Repositorio.Carrinho;
 using Applespace.Repositorio.Login;
 using Applespace.Repositorio.Produto;
 using Microsoft.AspNetCore.Mvc;
@@ -17,11 +19,16 @@ namespace Applespace.Controllers
         private readonly Database db = new Database();
         private IProdutoRepositorio? _produtoRepositorio;
         private ILoginRepositorio? _loginRepositorio;
-        public HomeController(ILogger<HomeController> logger, IProdutoRepositorio produto, ILoginRepositorio login)
+        private LoginClientes _LoginClientes;
+        private ICarrinhoRepositorio? _carrinhoRepositorio;
+        public HomeController(ILogger<HomeController> logger, IProdutoRepositorio produto, ILoginRepositorio login, 
+            LoginClientes loginClientes, ICarrinhoRepositorio carrinho)
         {
             _logger = logger;
             _produtoRepositorio = produto;
             _loginRepositorio = login;
+            _LoginClientes = loginClientes;
+            _carrinhoRepositorio = carrinho;
         }
 
 
@@ -93,19 +100,30 @@ namespace Applespace.Controllers
 
             return View(produto);
         }
+        public IActionResult AdicionarCarrinho ()
+        {
+            return View();     
+        }
+        [HttpPost]
+        public IActionResult AdicionarCarrinho(int codBarra, int? quantidade)
+        {
+            var cliente = _LoginClientes.GetCliente();
+            if (cliente == null)
+            {
+                return RedirectToAction("Login");
+            }
 
-        public IActionResult AdicionarCarrinho (){
+            int qtd = quantidade ?? 1; 
+            _carrinhoRepositorio?.AdicionarCarrinho(codBarra, qtd, cliente.idCliente);
 
-
-
-            return View();         
+            return RedirectToAction("Produto", new { id = codBarra });
         }
 
         public IActionResult Login()
         {
             return View();
         }
-        public static int x;
+
         [HttpPost]
         public IActionResult Login(Clientes cli)
         {
@@ -113,7 +131,7 @@ namespace Applespace.Controllers
 
             if (loginDB != null)
             {
-                x = loginDB.idCliente;
+                _LoginClientes.Login(loginDB);
                 return RedirectToAction("Perfil");
             }
             else
@@ -136,34 +154,43 @@ namespace Applespace.Controllers
         public IActionResult Perfil()
         {
             Clientes cliente = null;
-            using (MySqlConnection conn = db.GetConnection())
-            {
-                string sql = @"SELECT * FROM Clientes WHERE Clientes.Id_Cliente = @id";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@id", x);
-                using (var reader = cmd.ExecuteReader())
-                {
-                    if (reader.Read())
+                cliente = _LoginClientes.GetCliente();
+
+                    if (cliente != null)
                     {
-                        cliente = new Clientes
+                        using (MySqlConnection conn = db.GetConnection())
                         {
-                            idCliente = reader.GetInt32("Id_Cliente"),
-                            senha = reader.GetString("Senha"),
-                            nome = reader.GetString("Nome"),
-                            email = reader.GetString("Email"),
-                            CPF = reader.GetInt32("Cpf"),
-                            telefone = reader.GetInt32("Telefone")
-                        };
-                        return View(cliente);
+                            string sql = @"SELECT * FROM Clientes WHERE Clientes.Email = @email and Clientes.Senha = @senha";
+                            MySqlCommand cmd = new MySqlCommand(sql, conn);
+                            cmd.Parameters.AddWithValue("@email", cliente.email);
+                            cmd.Parameters.AddWithValue("@senha", cliente.senha);
+                            using (var reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    cliente = new Clientes
+                                    {
+                                        idCliente = reader.GetInt32("Id_Cliente"),
+                                        senha = reader.GetString("Senha"),
+                                        nome = reader.GetString("Nome"),
+                                        email = reader.GetString("Email"),
+                                        CPF = reader.GetInt32("Cpf"),
+                                        telefone = reader.GetInt32("Telefone")
+                                    };
+                                    _LoginClientes.Logout();
+                                    _LoginClientes.Login(cliente);
+                                    return View(cliente);
+                                }
+                                else { return View(nameof(Login)); }
+                            }
+                        }
                     }
                     else
                     {
-                        return View(nameof(Login));
+                        return RedirectToAction("Login");
                     }
-                }
             }          
 
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

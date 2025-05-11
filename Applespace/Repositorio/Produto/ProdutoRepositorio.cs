@@ -44,7 +44,8 @@ namespace Applespace.Repositorio.Produto
                            Descricao=@descricao, 
                            Id_Cate=@idCate, 
                            Estoque=@estoque, 
-                           Img=@img 
+                           Img=@img, 
+                           EmDestaque=@destaque
                        WHERE Cod_Barra=@codigo";
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
@@ -54,6 +55,7 @@ namespace Applespace.Repositorio.Produto
                 cmd.Parameters.Add("@codigo", MySqlDbType.Int32).Value = produto.codBarra;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
                 cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
+                cmd.Parameters.Add("@destaque", MySqlDbType.Bit).Value = produto.emDestaque;
                 cmd.ExecuteNonQuery();
             }
         }
@@ -61,8 +63,11 @@ namespace Applespace.Repositorio.Produto
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string Sql = @"insert into Produtos (Nome, Preco, Descricao, Estoque, Id_Adm, Id_Cate, Img)
-                                values (@nome, @preco, @descricao, @estoque, @idAdm, @idCate, @img)";
+                string Sql = @"INSERT INTO Produtos 
+                        (Nome, Preco, Descricao, Estoque, Id_Adm, Id_Cate, Img, EmDestaque)
+                       VALUES 
+                        (@nome, @preco, @descricao, @estoque, @idAdm, @idCate, @img, @emDestaque)";
+
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
                 cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
@@ -71,6 +76,8 @@ namespace Applespace.Repositorio.Produto
                 cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = produto.idAdm;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
                 cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
+                cmd.Parameters.Add("@emDestaque", MySqlDbType.Bit).Value = produto.emDestaque;
+
                 cmd.ExecuteNonQuery();
             }
         }
@@ -112,7 +119,8 @@ namespace Applespace.Repositorio.Produto
                             img = reader.GetString("Img"),
                             estoque = reader.GetInt32("Estoque"),
                             idCate = reader.GetInt32("id_Cate"),
-                            idAdm = reader.GetInt32("id_Adm")
+                            idAdm = reader.GetInt32("id_Adm"),
+                            emDestaque = reader.GetBoolean("EmDestaque"),
                         };
                     }
                 }

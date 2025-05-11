@@ -7,13 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Libraries\NewFolder\**" />
     <Compile Remove="wwwroot\NewFolder1\**" />
-    <Content Remove="Libraries\NewFolder\**" />
     <Content Remove="wwwroot\NewFolder1\**" />
-    <EmbeddedResource Remove="Libraries\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
-    <None Remove="Libraries\NewFolder\**" />
     <None Remove="wwwroot\NewFolder1\**" />
   </ItemGroup>
 
@@ -27,6 +23,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="MySql.Data" Version="9.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Libraries\LoginClientes\" />
+    <Folder Include="Libraries\Sessao\" />
   </ItemGroup>
 
 </Project>

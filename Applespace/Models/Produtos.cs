@@ -9,9 +9,10 @@ namespace Applespace.Models
         public string? nome { get; set; }
         public int estoque { get; set; }
         public string? img { get; set; }
+        public bool emDestaque { get; set; }
 
 
-        
+
         public int idAdm { get; set; }
         public Administradores? Administradores { get; set; }
 

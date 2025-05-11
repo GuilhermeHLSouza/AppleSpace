@@ -6,7 +6,10 @@
         public int quantidade {  get; set; }
         public double preco {  get; set; }
         public int codBarra {  get; set; }
+        public Produtos produtos { get; set; }
+
         public int idCliente { get; set; }
+        public Clientes clientes { get; set; }
 
     }
 }

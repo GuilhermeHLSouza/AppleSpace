@@ -186,7 +186,8 @@
                 <li><i class="bi bi-arrow-left-right"></i> Troca garantida em 7 dias</li>
             </ul>
 
-            <form method="post" action="@Url.Action("AdicionarAoCarrinho", "Carrinho", new { id = @Model.codBarra })">
+            <form method="post" action="@Url.Action("AdicionarCarrinho", "Home")">
+                <input type="hidden" name="codBarra" value="@Model.codBarra" />
                 <button type="submit" class="btn btn-comprar">Adicionar ao carrinho</button>
             </form>
         </div>
