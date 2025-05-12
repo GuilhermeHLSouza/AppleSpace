@@ -1,39 +1,97 @@
 ﻿@model List<Carrinhos>
+@{
+    
+    ViewData["Title"] = "Carrinho";
+    Layout = "_LayoutCarrinho";
+    decimal total = Model.Sum(x => x.produtos.valor * x.quantidade);
+}
 
-<h2 class="text-center mb-4">Seu Carrinho</h2>
+<h2 class="fw-bold mb-4">Seu Carrinho de Compras</h2>
 
 @if (Model.Count == 0)
 {
-    <p class="text-center">Seu carrinho está vazio.</p>
+    <div class="alert alert-info text-center">
+        Seu carrinho está vazio.
+    </div>
 }
 else
 {
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Valor Unitário</th>
-                <th>Subtotal</th>
-                <th>Ação</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.produtos.nome</td>
-                    <td>@item.quantidade</td>
-                    <td>R$ @item.produtos.valor</td>
-                    <td>R$ @(item.produtos.valor * item.quantidade)</td>
-                    <td>
-                        <form asp-action="DeletarCarrinho" method="post">
-                            <input type="hidden" name="id" value="@item.idCarrinho" />
-                            <button type="submit" class="btn btn-danger btn-sm">Remover</button>
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="row">
+        <!-- Tabela -->
+        <div class="col-lg-8 mb-4">
+            <table class="table table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Produto</th>
+                        <th class="text-center">Quantidade</th>
+                        <th>Valor Unitário</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <img src="@item.produtos.img" alt="@item.produtos.nome" width="60" height="60" class="me-3 rounded shadow-sm" style="object-fit: contain;" />
+                                    <span>@item.produtos.nome</span>
+                                </div>
+                            </td>
+                            <td class="text-center">@item.quantidade</td>
+                            <td>R$ @item.produtos.valor.ToString("F2")</td>
+                            <td>@((item.produtos.valor * item.quantidade).ToString("F2"))</td>
+
+                            <td>
+                                <form asp-action="DeletarCarrinho" method="post" class="d-inline">
+                                    <input type="hidden" name="id" value="@item.idCarrinho" />
+                                    <button class="btn btn-outline-danger btn-sm">Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+            <a href="/" class="btn btn-outline-secondary mt-3">
+                <i class="bi bi-arrow-left"></i> Continuar comprando
+            </a>
+        </div>
+
+        <!-- Resumo e Ações -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="fw-semibold mb-3">Resumo do Pedido</h5>
+
+                    <div class="mb-3">
+                        <label class="form-label">Calcular Frete</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Digite seu CEP" />
+                            <button class="btn btn-outline-primary" type="button">Calcular</button>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Cupom de Desconto</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Insira o código do cupom" />
+                            <button class="btn btn-outline-success" type="button">Aplicar</button>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <strong class="text-success">R$ @total.ToString("F2")</strong>
+                    </div>
+
+                    <button class="btn btn-primary w-100 mt-4">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div>
 }
