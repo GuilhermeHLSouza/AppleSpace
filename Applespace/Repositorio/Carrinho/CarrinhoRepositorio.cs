@@ -92,11 +92,35 @@ namespace Applespace.Repositorio.Carrinho
         public void RemoverCarrinho(int id)
         {
             using (MySqlConnection conn = _db.GetConnection())
-            {
-                string sql = @"DELETE FROM Carrinho WHERE Id_Carrinho = @idCarrinho";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@idCarrinho", id);
-                cmd.ExecuteNonQuery();
+            { 
+                string verificaQuantidadeSql = @"SELECT Quantidade FROM Carrinho WHERE Id_Carrinho = @id";
+                MySqlCommand verificaCmd = new MySqlCommand(verificaQuantidadeSql, conn);
+                verificaCmd.Parameters.AddWithValue("@id", id);
+                MySqlDataReader reader = verificaCmd.ExecuteReader();
+
+                int quantidade = 0;
+                while (reader.Read())
+                {
+                    quantidade = reader.GetInt32("Quantidade");
+                }
+                reader.Close();
+
+                if (quantidade <= 1)
+                {
+                    string deleteSql = @"DELETE FROM Carrinho WHERE Id_Carrinho = @id";
+                    MySqlCommand deleteCmd = new MySqlCommand(deleteSql, conn);
+                    deleteCmd.Parameters.AddWithValue("@id", id);
+                    deleteCmd.ExecuteNonQuery();
+                }
+                else
+                {
+
+                    string updateSql = @"UPDATE Carrinho SET Quantidade = Quantidade - 1 WHERE Id_Carrinho = @id";
+                    MySqlCommand updateCmd = new MySqlCommand(updateSql, conn);
+                    updateCmd.Parameters.AddWithValue("@id", id);
+                    updateCmd.ExecuteNonQuery();
+                }
+
             }
         }
     }
