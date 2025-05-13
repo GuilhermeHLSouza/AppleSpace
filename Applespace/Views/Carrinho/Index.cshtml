@@ -39,6 +39,21 @@ else
                                     <span>@item.produtos.nome</span>
                                 </div>
                             </td>
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center align-items-center gap-1">
+                                    <form asp-action="RemoverProdutos" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@item.idCarrinho" />
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">−</button>
+                                    </form>
+
+                                    <span class="mx-2">@item.quantidade</span>
+
+                                    <form asp-action="AdicionarProdutos" method="post" class="d-inline">
+                                        <input type="hidden" name="id" value="@item.idCarrinho" />
+                                        <button type="submit" class="btn btn-outline-secondary btn-sm">+</button>
+                                    </form>
+                                </div>
+                            </td>
                             <td class="text-center">@item.quantidade</td>
                             <td>R$ @item.produtos.valor.ToString("F2")</td>
                             <td>@((item.produtos.valor * item.quantidade).ToString("F2"))</td>

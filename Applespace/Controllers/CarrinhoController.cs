@@ -15,7 +15,7 @@ namespace Applespace.Controllers
         }
         public IActionResult Index()
         {
-            var cliente  = _LoginClientes.GetCliente();
+            var cliente = _LoginClientes.GetCliente();
             if (cliente != null)
             {
                 var lista = _carrinhoRepositorio?.ListarCarrinho(cliente.idCliente);
@@ -23,17 +23,17 @@ namespace Applespace.Controllers
             }
             else
             {
-                 return Redirect("Home/Login");
+                return Redirect("Home/Login");
             }
-            
+
         }
 
-        public IActionResult DeletarCarrinho() 
+        public IActionResult DeletarCarrinho()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult DeletarCarrinho(int id) 
+        public IActionResult DeletarCarrinho(int id)
         {
             _carrinhoRepositorio?.RemoverCarrinho(id);
             return RedirectToAction("Index");
@@ -45,6 +45,22 @@ namespace Applespace.Controllers
             return View();
         }
 
+        public IActionResult AdicionarProdutos()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AdicionarProdutos(int id)
+        {
+            _carrinhoRepositorio?.AdicionarQtdCarrinho(id);
 
+            return RedirectToAction("Index");
+        }
+        public IActionResult RemoverProdutos(int id)
+        {
+            _carrinhoRepositorio?.RemoverQtdCarrinho(id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

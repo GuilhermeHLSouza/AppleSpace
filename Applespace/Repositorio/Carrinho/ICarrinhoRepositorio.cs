@@ -8,5 +8,7 @@ namespace Applespace.Repositorio.Carrinho
         
         public List<Carrinhos> ListarCarrinho(int id);
         public void RemoverCarrinho(int id);
+        public void RemoverQtdCarrinho(int id);
+        public void AdicionarQtdCarrinho(int id);
     }
 }
