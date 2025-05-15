@@ -6,6 +6,6 @@ namespace Applespace.Repositorio.Compra
     {
         public void RegistroEndereço(int idCliente, int cep, int numero, string rua, string bairro, string complemento);
         public void SelectUsuario(Clientes cliente);
-        public void Venda();
+        public void Venda(Vendas venda);
     }
 }

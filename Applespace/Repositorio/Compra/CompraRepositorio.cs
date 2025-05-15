@@ -8,13 +8,23 @@ namespace Applespace.Repositorio.Compra
     public class CompraRepositorio : ICompraRepositorio
     {
         private readonly Database db = new Database();
-        public void Venda()
+        public void Venda(Vendas venda)
         {
+
             using (MySqlConnection conn = db.GetConnection())
             {
-                string sql = @"INSERT INTO Vendas (CEP, Numero, Rua, Bairro, Complemeto, Id_Cliente)
-                            VALUES (@cep, @num, @rua, @bairro, @complemento, @idCliente)";
+                string sql = @"INSERT INTO Venda 
+                        (Forma_Pgm, Statu, Id_Carrinho) 
+                       VALUES 
+                        (@forma, @status, @idCarrinho)";
 
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+                cmd.Parameters.Add("@forma", MySqlDbType.VarChar).Value = venda.formPgm;
+                cmd.Parameters.Add("@status", MySqlDbType.VarChar).Value = venda.status;
+                cmd.Parameters.Add("@idCarrinho", MySqlDbType.Int32).Value = venda.idCarrinho;
+
+                cmd.ExecuteNonQuery();
             }
         }
 

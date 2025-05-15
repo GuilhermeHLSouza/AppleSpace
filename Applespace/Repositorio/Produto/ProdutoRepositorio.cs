@@ -77,6 +77,8 @@ namespace Applespace.Repositorio.Produto
                 cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = produto.idAdm;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
                 cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
+                cmd.Parameters.Add("@emDestaque", MySqlDbType.Bit).Value = produto.emDestaque;
+
                 cmd.ExecuteNonQuery();
             }
         }

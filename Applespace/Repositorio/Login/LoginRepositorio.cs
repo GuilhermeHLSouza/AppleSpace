@@ -18,7 +18,7 @@ namespace Applespace.Repositorio.Login
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.nome;
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.email;
-                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.telefone;
+                cmd.Parameters.Add("@telefone", MySqlDbType.Int64).Value = cliente.telefone;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = cliente.senha;
                 cmd.Parameters.Add("@cpf", MySqlDbType.Int64).Value = cliente.CPF;
                 cmd.ExecuteNonQuery();
