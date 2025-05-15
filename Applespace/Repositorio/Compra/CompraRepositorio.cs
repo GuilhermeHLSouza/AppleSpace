@@ -13,7 +13,8 @@ namespace Applespace.Repositorio.Compra
             using (MySqlConnection conn = db.GetConnection())
             {
                 string sql = @"INSERT INTO Vendas (CEP, Numero, Rua, Bairro, Complemeto, Id_Cliente)
-                            VALUES (@cep, @num, @rua, @bairro, @complemento, @idCliente)"
+                            VALUES (@cep, @num, @rua, @bairro, @complemento, @idCliente)";
+
             }
         }
 

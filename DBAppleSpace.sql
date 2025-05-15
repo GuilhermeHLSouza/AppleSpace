@@ -17,7 +17,6 @@ Numero tinyint NOT NULL,
 Rua varchar(75) NOT NULL,
 Bairro varchar(50) NOT NULL,
 Complemento varchar(50),
-Id_Entrega smallint,
 Id_Cliente int
 );
 
@@ -33,6 +32,8 @@ CREATE TABLE Entregas (
 Id_Entrega smallint PRIMARY KEY auto_increment,
 Statu varchar(25) NOT NULL,
 Id_Tranportadora tinyint,
+Id_venda tinyint,
+Id_Entrega tinyint,
 FOREIGN KEY(Id_Tranportadora) REFERENCES Transportadoras (Id_Tranportadora)
 );
 
@@ -45,9 +46,7 @@ CREATE TABLE Venda (
 Id_Venda smallint PRIMARY KEY auto_increment,
 Forma_Pgm varchar(25) NOT NULL,
 Statu varchar(25) NOT NULL,
-Id_Entrega smallint,
-Id_Carrinho int,
-FOREIGN KEY(Id_Entrega) REFERENCES Entregas (Id_Entrega)
+Id_Carrinho int
 );
 
 CREATE TABLE Clientes (
@@ -88,17 +87,6 @@ ALTER TABLE Venda ADD FOREIGN KEY(Id_Carrinho) REFERENCES Carrinho (Id_Carrinho)
 ALTER TABLE Produtos MODIFY Descricao TEXT;
 ALTER TABLE Produtos ADD EmDestaque BOOLEAN NOT NULL DEFAULT FALSE; 
 
-ALTER TABLE Venda DROP FOREIGN KEY Venda_ibfk_1;
-ALTER TABLE Enderecos DROP FOREIGN KEY iD_Enderecos;
-
-ALTER TABLE Venda DROP COLUMN Id_Entrega;
-ALTER TABLE Enderecos DROP COLUMN Id_Entrega;
-
--- Passo 2: Adicionar novas colunas na tabela Entregas
-ALTER TABLE Entregas ADD Id_Venda smallint;
-ALTER TABLE Entregas ADD Id_Endereco smallint;
-
--- Passo 3: Criar as novas chaves estrangeiras
 ALTER TABLE Entregas ADD FOREIGN KEY (Id_Venda) REFERENCES Venda(Id_Venda);
-ALTER TABLE Entregas ADD FOREIGN KEY (Id_Endereco) REFERENCES Enderecos(Id_Endereco);
+ALTER TABLE Entregas ADD FOREIGN KEY (Id_Endereco) REFERENCES Endereços(Id_Endereco);
 
