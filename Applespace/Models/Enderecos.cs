@@ -8,7 +8,7 @@
         public string rua { get; set; }
         public string Bairro { get; set; }
         public string complemento {  get; set; }
-        public int IDEntrega {  get; set; }
         public int IDCliente {  get; set; }
+        public Clientes cliente { get; set; }
     }
 }

@@ -8,9 +8,13 @@ namespace Applespace.Repositorio.Compra
     public class CompraRepositorio : ICompraRepositorio
     {
         private readonly Database db = new Database();
-        public void FormaPgm()
+        public void Venda()
         {
-            throw new NotImplementedException();
+            using (MySqlConnection conn = db.GetConnection())
+            {
+                string sql = @"INSERT INTO Vendas (CEP, Numero, Rua, Bairro, Complemeto, Id_Cliente)
+                            VALUES (@cep, @num, @rua, @bairro, @complemento, @idCliente)"
+            }
         }
 
         public void RegistroEndereço(int idCliente, int cep, int numero, string rua, string bairro, string complemento)

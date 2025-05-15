@@ -87,3 +87,18 @@ ALTER TABLE Endereços ADD FOREIGN KEY(Id_Cliente) REFERENCES Clientes (Id_Clien
 ALTER TABLE Venda ADD FOREIGN KEY(Id_Carrinho) REFERENCES Carrinho (Id_Carrinho);
 ALTER TABLE Produtos MODIFY Descricao TEXT;
 ALTER TABLE Produtos ADD EmDestaque BOOLEAN NOT NULL DEFAULT FALSE; 
+
+ALTER TABLE Venda DROP FOREIGN KEY Venda_ibfk_1;
+ALTER TABLE Enderecos DROP FOREIGN KEY iD_Enderecos;
+
+ALTER TABLE Venda DROP COLUMN Id_Entrega;
+ALTER TABLE Enderecos DROP COLUMN Id_Entrega;
+
+-- Passo 2: Adicionar novas colunas na tabela Entregas
+ALTER TABLE Entregas ADD Id_Venda smallint;
+ALTER TABLE Entregas ADD Id_Endereco smallint;
+
+-- Passo 3: Criar as novas chaves estrangeiras
+ALTER TABLE Entregas ADD FOREIGN KEY (Id_Venda) REFERENCES Venda(Id_Venda);
+ALTER TABLE Entregas ADD FOREIGN KEY (Id_Endereco) REFERENCES Enderecos(Id_Endereco);
+
