@@ -20,7 +20,7 @@ namespace Applespace.Repositorio.Login
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.email;
                 cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.telefone;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = cliente.senha;
-                cmd.Parameters.Add("@cpf", MySqlDbType.Int32).Value = cliente.CPF;
+                cmd.Parameters.Add("@cpf", MySqlDbType.Int64).Value = cliente.CPF;
                 cmd.ExecuteNonQuery();
             }
         }
