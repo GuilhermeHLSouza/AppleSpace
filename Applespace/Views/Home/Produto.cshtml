@@ -20,7 +20,7 @@
     }
 
         .breadcrumb a:hover {
-            color: #007bff;
+            color: #0E61FE;
         }
 
     .produto-img {
@@ -47,7 +47,7 @@
 
     .produto-preco {
         font-size: 1.8rem;
-        color: #007bff;
+        color: #000;
         font-weight: bold;
         margin-bottom: 10px;
     }
@@ -77,7 +77,7 @@
     }
 
     .btn-comprar {
-        background-color: #007bff;
+        background-color: #0E61FE;
         border: none;
         color: #fff;
         padding: 16px 45px;
@@ -90,11 +90,11 @@
     }
 
         .btn-comprar:hover {
-            background-color: #0056b3;
+            background-color: #0E61FE;
         }
 
     .btn-secundario {
-        background-color: #007bff;
+        background-color: #0E61FE;
         color: #fff;
         border: none;
         width: 52px;
@@ -169,7 +169,9 @@
             <form class="d-flex align-items-center" method="post" id="formAddCart" action="@Url.Action("AdicionarCarrinho", "Home")">
                 <input type="hidden" name="codBarra" value="@Model.codBarra" />
                 <button type="button" class="btn btn-comprar" onclick="enviarCarrinhoERedirecionar()">Comprar</button>
-                <button type="submit" class="btn btn-secundario"></button>
+                <button type="submit" class="btn btn-secundario" style="width: 56px; height: 56px; border-radius: 50%;">
+                    <i class="bi bi-cart-plus"></i>
+                </button>
             </form>
         </div>
     </div>
