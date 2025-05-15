@@ -33,7 +33,7 @@ Id_Entrega smallint PRIMARY KEY auto_increment,
 Statu varchar(25) NOT NULL,
 Id_Tranportadora tinyint,
 Id_venda tinyint,
-Id_Entrega tinyint,
+Id_Endereco tinyint,
 FOREIGN KEY(Id_Tranportadora) REFERENCES Transportadoras (Id_Tranportadora)
 );
 
@@ -86,5 +86,5 @@ ALTER TABLE Produtos MODIFY Descricao TEXT;
 ALTER TABLE Produtos ADD EmDestaque BOOLEAN NOT NULL DEFAULT FALSE; 
 
 ALTER TABLE Entregas ADD FOREIGN KEY (Id_Venda) REFERENCES Venda(Id_Venda);
-ALTER TABLE Entregas ADD FOREIGN KEY (Id_Endereco) REFERENCES Endereços(Id_Endereco);
+ALTER TABLE Entregas ADD FOREIGN KEY (Id_Endereco) REFERENCES Endereos(Id_Endereco);
 
