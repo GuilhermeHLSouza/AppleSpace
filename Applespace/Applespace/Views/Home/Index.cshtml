@@ -2,9 +2,9 @@
 @{
     ViewData["Title"] = "Inicio";
 }
+<br />
+<br />
 
-<br />
-<br />
 
 
 <div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
@@ -42,9 +42,10 @@
 </div>
 
 <br />
+<br />
 
 <section class="container py-5">
-    <h2 id="iphone"class="fw-bold fs-2 mb-4 border-bottom pb-2">iPhones</h2>
+    <h2 id="iphone" class="fw-bold fs-2 mb-4 border-bottom pb-2">iPhones</h2>
     <div class="row g-4">
         @foreach (var prod in Model.Where(p => p.Id_Cate == 1))
         {
