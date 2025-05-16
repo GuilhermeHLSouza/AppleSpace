@@ -1,0 +1,56 @@
+﻿@model Applespace.Models.Produtos
+
+@{
+    ViewData["Title"] = "Cadastrar Produto";
+    Layout = "_LayoutLogin";
+}
+
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">Cadastrar Produto</h2>
+
+    <form asp-action="CadastrarProdutos" method="post" class="bg-white p-4 rounded shadow-sm mx-auto" style="max-width: 600px;">
+        <div class="mb-3">
+            <label class="form-label">Nome:</label>
+            <input asp-for="nome" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Preço:</label>
+            <input asp-for="valor" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Categoria:</label>
+            <input asp-for="idCate" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Descrição:</label>
+            <input asp-for="descricao" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Link da Imagem:</label>
+            <input asp-for="img" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Produtos no estoque:</label>
+            <input asp-for="estoque" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Funcionário que cadastrou:</label>
+            <input asp-for="idAdm" class="form-control" />
+        </div>
+
+        <div class="form-check mb-3">
+            <input asp-for="emDestaque" class="form-check-input" type="checkbox" />
+            <label asp-for="emDestaque" class="form-check-label">Produto em Destaque</label>
+        </div>
+
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary rounded-pill px-4">Salvar</button>
+        </div>
+    </form>
+</div>

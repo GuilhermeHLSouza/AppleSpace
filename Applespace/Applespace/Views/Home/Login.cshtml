@@ -1,0 +1,34 @@
+﻿@model Applespace.Models.Clientes
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LayoutLogin";
+}
+
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center mb-4">Login</h2>
+
+    @if (ViewData["msg"] != null)
+    {
+        <div class="alert alert-danger">@ViewData["msg"]</div>
+    }
+
+    <form asp-action="Login" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="email">Email</label>
+            <input asp-for="email" class="form-control" placeholder="Digite seu email" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="senha">Senha</label>
+            <input asp-for="senha" class="form-control" placeholder="Digite sua senha" type="password" />
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Entrar</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <span>Não tem uma conta?</span>
+        <a href="@Url.Action("Cadastrar", "Home")">Cadastre-se aqui</a>
+    </div>
+</div>

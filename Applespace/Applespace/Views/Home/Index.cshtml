@@ -1,0 +1,163 @@
+﻿@model List<Applespace.Models.Produtos>
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+<br />
+<br />
+
+
+<div id="bannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <!-- Indicadores (bolinhas) -->
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#bannerCarousel" data-bs-slide-to="2" class="active" aria-current="true" aria-label="Slide 3"></button>
+    </div>
+
+    <!-- Slides -->
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/img/slide1.png" class="d-block w-100" alt="Banner 1">
+        </div>
+        <div class="carousel-item">
+            <img src="/img/slide2.png" class="d-block w-100" alt="Banner 2">
+        </div>
+        <div class="carousel-item">
+            <img src="/img/slide3.png" class="d-block w-100" alt="Banner 3">
+        </div>
+    </div>
+
+    <!-- Setinha esquerda -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+
+    <!-- Setinha direita -->
+    <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">Próximo</span>
+    </button>
+</div>
+
+<br />
+
+<section class="container py-5">
+    <h2 id="iphone"class="fw-bold fs-2 mb-4 border-bottom pb-2">iPhones</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 1))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 id="ipad" class="fw-bold fs-2 mb-4 border-bottom pb-2">iPads</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 2))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Ver Produto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 id="watch" class="fw-bold fs-2 mb-4 border-bottom pb-2">Apple Watch</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 3))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Ver Produto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 id="airpods" class="fw-bold fs-2 mb-4 border-bottom pb-2">AirPods</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 4))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Ver Produto
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="container py-5">
+    <h2 id="mac" class="fw-bold fs-2 mb-4 border-bottom pb-2">MacBooks</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.Id_Cate == 5))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
+                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+
+
+<script>
+    function AbrirProduto(id){
+         window.location.href = '/Home/Produto/' + id;
+    }
+</script>
+
