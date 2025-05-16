@@ -2,12 +2,38 @@
 using Applespace.Data;
 using Applespace.Models;
 using System.Data;
+using MySqlX.XDevAPI;
 
 namespace Applespace.Repositorio.Login
 {
     public class LoginRepositorio : ILoginRepositorio
     {
         private readonly Database _db = new Database();
+
+        public void AtualizarCliente(Clientes clientes)
+        {
+            using (MySqlConnection conn = _db.GetConnection())
+            {
+                string sql = @"UPDATE Clientes 
+                       SET Nome = @nome, 
+                           Email = @email, 
+                           Cpf = @cpf, 
+                           Telefone = @telefone, 
+                           Senha = @senha
+                       WHERE Id_Cliente = @id";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+
+                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = clientes.nome;
+                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = clientes.email;
+                cmd.Parameters.Add("@cpf", MySqlDbType.Int64).Value = clientes.CPF;
+                cmd.Parameters.Add("@telefone", MySqlDbType.Int32).Value = clientes.telefone;
+                cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = clientes.senha;
+                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = clientes.idCliente;
+
+                cmd.ExecuteNonQuery();
+            }
+        }
 
         public void cadastrar(Clientes cliente)
         {

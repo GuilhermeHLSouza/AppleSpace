@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Elfie.Diagnostics;
 using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
 
 namespace Applespace.Controllers
 {
@@ -154,43 +155,60 @@ namespace Applespace.Controllers
         public IActionResult Perfil()
         {
             Clientes cliente = null;
-                cliente = _LoginClientes.GetCliente();
+            cliente = _LoginClientes.GetCliente();
 
-                    if (cliente != null)
+            if (cliente != null)
+            {
+                using (MySqlConnection conn = db.GetConnection())
+                {
+                    string sql = @"SELECT * FROM Clientes WHERE Clientes.Email = @email and Clientes.Senha = @senha";
+                    MySqlCommand cmd = new MySqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@email", cliente.email);
+                    cmd.Parameters.AddWithValue("@senha", cliente.senha);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        using (MySqlConnection conn = db.GetConnection())
+                        if (reader.Read())
                         {
-                            string sql = @"SELECT * FROM Clientes WHERE Clientes.Email = @email and Clientes.Senha = @senha";
-                            MySqlCommand cmd = new MySqlCommand(sql, conn);
-                            cmd.Parameters.AddWithValue("@email", cliente.email);
-                            cmd.Parameters.AddWithValue("@senha", cliente.senha);
-                            using (var reader = cmd.ExecuteReader())
+                            cliente = new Clientes
                             {
-                                if (reader.Read())
-                                {
-                                    cliente = new Clientes
-                                    {
-                                        idCliente = reader.GetInt32("Id_Cliente"),
-                                        senha = reader.GetString("Senha"),
-                                        nome = reader.GetString("Nome"),
-                                        email = reader.GetString("Email"),
-                                        CPF = reader.GetInt32("Cpf"),
-                                        telefone = reader.GetInt32("Telefone")
-                                    };
-                                    _LoginClientes.Logout();
-                                    _LoginClientes.Login(cliente);
-                                    return View(cliente);
-                                }
-                                else { return View(nameof(Login)); }
-                            }
+                                idCliente = reader.GetInt32("Id_Cliente"),
+                                senha = reader.GetString("Senha"),
+                                nome = reader.GetString("Nome"),
+                                email = reader.GetString("Email"),
+                                CPF = reader.GetInt32("Cpf"),
+                                telefone = reader.GetInt32("Telefone")
+                            };
+                            _LoginClientes.Logout();
+                            _LoginClientes.Login(cliente);
+                            return View(cliente);
                         }
+                        else { return View(nameof(Login)); }
                     }
-                    else
-                    {
-                        return RedirectToAction("Login");
-                    }
-            }          
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }          
 
+        public IActionResult AlterarPerfil()
+        {
+            Clientes clientes = _LoginClientes.GetCliente();
+            return View(clientes);
+        }
+        public IActionResult Alterar(Clientes clientes)
+        {
+            _loginRepositorio.AtualizarCliente(clientes);
+            _LoginClientes.Logout();
+            _LoginClientes.Login(clientes);
+            return RedirectToAction("Perfil");
+        }
+        public IActionResult SairPerfil()
+        {
+            _LoginClientes.Logout();
+            return RedirectToAction("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

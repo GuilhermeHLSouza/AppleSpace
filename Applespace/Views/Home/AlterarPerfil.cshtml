@@ -1,0 +1,59 @@
+﻿@model Applespace.Models.Clientes
+
+@{
+    ViewData["Title"] = "Alterar Perfil";
+    Layout = "_LayoutLogin";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="text-center mb-4">Alterar Perfil</h2>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <form asp-action="Alterar" method="post">
+                <input type="hidden" asp-for="idCliente" />
+
+                <div class="form-group mb-3">
+                    <label for="nome"><strong>Nome:</strong></label>
+                    <input asp-for="nome" class="form-control" />
+                    <span asp-validation-for="nome" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="email"><strong>Email:</strong></label>
+                    <input asp-for="email" class="form-control" />
+                    <span asp-validation-for="email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="senha"><strong>Senha:</strong></label>
+                    <input asp-for="senha" class="form-control" type="password" />
+                    <span asp-validation-for="senha" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="telefone"><strong>Telefone:</strong></label>
+                    <input asp-for="telefone" class="form-control" />
+                    <span asp-validation-for="telefone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="CPF"><strong>CPF:</strong></label>
+                    <input asp-for="CPF" class="form-control" />
+                    <span asp-validation-for="CPF" class="text-danger"></span>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <button type="submit" class="btn btn-success">Salvar Alterações</button>
+                    <a asp-action="Perfil" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
