@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Cupom>
+
+@{
+    ViewData["Title"] = "Lista de Cupons";
+    Layout = "_LayoutAdmin";
+}
+
+<div class="container my-5">
+    <h2 class="text-center fw-bold mb-4">Lista de Cupons Cadastrados</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center bg-white">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Código</th>
+                    <th>Tipo</th>
+                    <th>Valor</th>
+                    <th>Expiração</th>
+                    <th>Ativo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var cupom in Model)
+                {
+                    <tr>
+                        <td>@cupom.Id</td>
+                        <td>@cupom.Codigo</td>
+                        <td>@cupom.Tipo</td>
+                        <td>
+                            @if (cupom.Tipo.ToLower() == "frete")
+                            {
+                                <span>Frete Grátis</span>
+                            }
+                            else if (cupom.Tipo.ToLower() == "porcentagem")
+                            {
+                                <span>@cupom.Valor.ToString("0")%</span>
+                            }
+                            else if (cupom.Tipo.ToLower() == "valorfixo")
+                            {
+                                <span>@cupom.Valor.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"))</span>
+                            }
+                            else
+                            {
+                                <span>@cupom.Valor</span>
+                            }
+                        </td>
+
+
+                        <td>@cupom.Expiracao.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @if (cupom.Ativo)
+                            {
+                                <span class="badge bg-success">Sim</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Não</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center mt-4">
+        <a asp-action="CadastrarCupons" class="btn btn-primary rounded-pill px-4">Cadastrar Novo Cupom</a>
+    </div>
+</div>

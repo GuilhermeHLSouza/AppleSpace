@@ -1,19 +1,24 @@
-﻿using Applespace.Data;
-using Applespace.Models;
+﻿using Applespace.Models;
 using MySql.Data.MySqlClient;
+using Applespace.Data;
 
 namespace Applespace.Repositorio.Carrinho
 {
     public class CarrinhoRepositorio : ICarrinhoRepositorio
     {
-        Database _db = new Database();
+        private readonly Database _db;
+
+        public CarrinhoRepositorio(Database db)
+        {
+            _db = db;
+        }
+
         public void AdicionarCarrinho(int codBarra, int quantidade, int idCliente)
         {
             using (var conn = _db.GetConnection())
             {
-                // Verifica se o produto já está no carrinho
                 string checkSql = @"SELECT Id_Carrinho, Quantidade FROM Carrinho 
-                            WHERE Cod_Barra = @codBarra AND Id_Cliente = @idCliente";
+                                    WHERE Cod_Barra = @codBarra AND Id_Cliente = @idCliente";
                 MySqlCommand checkCmd = new MySqlCommand(checkSql, conn);
                 checkCmd.Parameters.AddWithValue("@codBarra", codBarra);
                 checkCmd.Parameters.AddWithValue("@idCliente", idCliente);
@@ -28,7 +33,7 @@ namespace Applespace.Repositorio.Carrinho
                         reader.Close();
 
                         string updateSql = @"UPDATE Carrinho SET Quantidade = @novaQtd 
-                                     WHERE Id_Carrinho = @idCarrinho";
+                                             WHERE Id_Carrinho = @idCarrinho";
                         MySqlCommand Cmd = new MySqlCommand(updateSql, conn);
                         Cmd.Parameters.AddWithValue("@novaQtd", qtdAtual + quantidade);
                         Cmd.Parameters.AddWithValue("@idCarrinho", idCarrinho);
@@ -43,7 +48,7 @@ namespace Applespace.Repositorio.Carrinho
                 decimal valor = Convert.ToDecimal(precoCmd.ExecuteScalar());
 
                 string insertSql = @"INSERT INTO Carrinho (Cod_Barra, Quantidade, Valor, Id_Cliente)
-                             VALUES (@codBarra, @quantidade, @valor, @idCliente)";
+                                     VALUES (@codBarra, @quantidade, @valor, @idCliente)";
                 MySqlCommand insertCmd = new MySqlCommand(insertSql, conn);
                 insertCmd.Parameters.AddWithValue("@codBarra", codBarra);
                 insertCmd.Parameters.AddWithValue("@quantidade", quantidade);
@@ -59,10 +64,11 @@ namespace Applespace.Repositorio.Carrinho
             using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = @"SELECT * FROM Carrinho 
-                       INNER JOIN Produtos ON Carrinho.Cod_Barra = Produtos.Cod_Barra 
-                       WHERE Id_Cliente = @idCliente";
+                               INNER JOIN Produtos ON Carrinho.Cod_Barra = Produtos.Cod_Barra 
+                               WHERE Id_Cliente = @idCliente";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@idCliente", id);
+
                 using (var reader = cmd.ExecuteReader())
                 {
                     while (reader.Read())
@@ -86,13 +92,12 @@ namespace Applespace.Repositorio.Carrinho
                     return carrinhos;
                 }
             }
-           
         }
 
         public void RemoverQtdCarrinho(int id)
         {
             using (MySqlConnection conn = _db.GetConnection())
-            { 
+            {
                 string verificaQuantidadeSql = @"SELECT Quantidade FROM Carrinho WHERE Id_Carrinho = @id";
                 MySqlCommand verificaCmd = new MySqlCommand(verificaQuantidadeSql, conn);
                 verificaCmd.Parameters.AddWithValue("@id", id);
@@ -114,15 +119,14 @@ namespace Applespace.Repositorio.Carrinho
                 }
                 else
                 {
-
                     string updateSql = @"UPDATE Carrinho SET Quantidade = Quantidade - 1 WHERE Id_Carrinho = @id";
                     MySqlCommand updateCmd = new MySqlCommand(updateSql, conn);
                     updateCmd.Parameters.AddWithValue("@id", id);
                     updateCmd.ExecuteNonQuery();
                 }
-
             }
         }
+
         public void RemoverCarrinho(int id)
         {
             using (MySqlConnection conn = _db.GetConnection())
@@ -133,6 +137,7 @@ namespace Applespace.Repositorio.Carrinho
                 deleteCmd.ExecuteNonQuery();
             }
         }
+
         public void AdicionarQtdCarrinho(int id)
         {
             using (MySqlConnection conn = _db.GetConnection())
@@ -156,8 +161,40 @@ namespace Applespace.Repositorio.Carrinho
                     updateCmd.Parameters.AddWithValue("@id", id);
                     updateCmd.ExecuteNonQuery();
                 }
-
             }
+        }
+
+        public Cupom? BuscarCupomPorCodigo(string codigo)
+        {
+            using (var conn = _db.GetConnection())
+            {
+                string sql = @"SELECT * FROM Cupons 
+                               WHERE Codigo = @codigo 
+                               AND Ativo = 1 
+                               AND Expiracao >= NOW() 
+                               LIMIT 1";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@codigo", codigo);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Cupom
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            Codigo = reader["Codigo"].ToString(),
+                            Tipo = reader["Tipo"].ToString(),
+                            Valor = Convert.ToDecimal(reader["Valor"]),
+                            Expiracao = Convert.ToDateTime(reader["Expiracao"]),
+                            Ativo = Convert.ToBoolean(reader["Ativo"])
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

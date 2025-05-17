@@ -4,16 +4,22 @@ using MySql.Data.MySqlClient;
 
 namespace Applespace.Repositorio.Categoria
 {
-    public class CategoriaRepositorio
+    public class CategoriaRepositorio : ICategoriaRepositorio
     {
-        Database _db = new Database();
+        private readonly Database _db;
+
+        public CategoriaRepositorio(Database db)
+        {
+            _db = db;
+        }
+
         public IEnumerable<Categorias> MostrarCate()
         {
             List<Categorias> CateList = new List<Categorias>();
 
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = "SELECT * FROM Produtos";
+                string sql = "SELECT * FROM Categorias";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 using (var reader = cmd.ExecuteReader())
                 {
@@ -27,7 +33,6 @@ namespace Applespace.Repositorio.Categoria
                     }
                 }
             }
-
 
             return CateList;
         }

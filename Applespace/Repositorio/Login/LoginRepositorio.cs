@@ -2,13 +2,17 @@
 using Applespace.Data;
 using Applespace.Models;
 using System.Data;
-using MySqlX.XDevAPI;
 
 namespace Applespace.Repositorio.Login
 {
     public class LoginRepositorio : ILoginRepositorio
     {
-        private readonly Database _db = new Database();
+        private readonly Database _db;
+
+        public LoginRepositorio(Database db)
+        {
+            _db = db;
+        }
 
         public void AtualizarCliente(Clientes clientes)
         {
@@ -53,7 +57,6 @@ namespace Applespace.Repositorio.Login
 
         public Clientes Login(string email, string senha)
         {
-            List<Clientes> clientesList = new List<Clientes>();
             using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = "select * from Clientes where Email = @email and Senha = @senha";
@@ -62,13 +65,9 @@ namespace Applespace.Repositorio.Login
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = senha;
 
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-
-                MySqlDataReader dr;
+                MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 Clientes Adm = new Clientes();
-
-                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (dr.Read())
                 {
@@ -79,7 +78,6 @@ namespace Applespace.Repositorio.Login
                 return Adm;
             }
         }
-
 
         public Administradores LoginAdm(string nome, string senha, int id)
         {
@@ -92,13 +90,9 @@ namespace Applespace.Repositorio.Login
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = senha;
                 cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = id;
 
-                MySqlDataAdapter da = new MySqlDataAdapter(cmd);
-                
-                MySqlDataReader dr;
+                MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 Administradores Adm = new Administradores();
-              
-                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (dr.Read())
                 {

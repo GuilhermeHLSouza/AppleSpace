@@ -7,11 +7,16 @@ namespace Applespace.Repositorio.Compra
 {
     public class CompraRepositorio : ICompraRepositorio
     {
-        private readonly Database db = new Database();
+        private readonly Database _db;
+
+        public CompraRepositorio(Database db)
+        {
+            _db = db;
+        }
+
         public void Venda(Vendas venda)
         {
-
-            using (MySqlConnection conn = db.GetConnection())
+            using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = @"INSERT INTO Venda 
                         (Forma_Pgm, Statu, Id_Carrinho) 
@@ -30,7 +35,7 @@ namespace Applespace.Repositorio.Compra
 
         public void RegistroEndereço(int idCliente, int cep, int numero, string rua, string bairro, string complemento)
         {
-            using(MySqlConnection conn = db.GetConnection())
+            using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = @"INSERT INTO Enderecos (CEP, Numero, Rua, Bairro, Complemeto, Id_Cliente)
                             VALUES (@cep, @num, @rua, @bairro, @complemento, @idCliente)";
@@ -42,15 +47,15 @@ namespace Applespace.Repositorio.Compra
                 cmd.Parameters.AddWithValue("@complemento", complemento);
                 cmd.Parameters.AddWithValue("@idCliente", idCliente);
 
+                cmd.ExecuteNonQuery();
             }
         }
 
         public void SelectUsuario(Clientes cliente)
         {
-
             if (cliente != null)
             {
-                using (MySqlConnection conn = db.GetConnection())
+                using (MySqlConnection conn = _db.GetConnection())
                 {
                     string sql = @"SELECT * FROM Clientes WHERE Clientes.Email = @email and Clientes.Senha = @senha";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -60,15 +65,12 @@ namespace Applespace.Repositorio.Compra
                     {
                         if (reader.Read())
                         {
-                            cliente = new Clientes
-                            {
-                                idCliente = reader.GetInt32("Id_Cliente"),
-                                senha = reader.GetString("Senha"),
-                                nome = reader.GetString("Nome"),
-                                email = reader.GetString("Email"),
-                                CPF = reader.GetInt32("Cpf"),
-                                telefone = reader.GetInt32("Telefone")
-                            };
+                            cliente.idCliente = reader.GetInt32("Id_Cliente");
+                            cliente.senha = reader.GetString("Senha");
+                            cliente.nome = reader.GetString("Nome");
+                            cliente.email = reader.GetString("Email");
+                            cliente.CPF = reader.GetInt32("Cpf");
+                            cliente.telefone = reader.GetInt32("Telefone");
                         }
                     }
                 }

@@ -7,7 +7,12 @@ namespace Applespace.Repositorio.Produto
 {
     public class ProdutoRepositorio : IProdutoRepositorio
     {
-        private readonly Database _db = new Database();
+        private readonly Database _db;
+
+        public ProdutoRepositorio(Database db)
+        {
+            _db = db;
+        }
 
         public IEnumerable<Produtos> MostrarProdutos()
         {
@@ -35,8 +40,9 @@ namespace Applespace.Repositorio.Produto
             }
             return produtoList;
         }
-        public void EditarProdutos(Produtos produto) {
 
+        public void EditarProdutos(Produtos produto)
+        {
             using (MySqlConnection conn = _db.GetConnection())
             {
                 string Sql = @"UPDATE Produtos 
@@ -60,6 +66,7 @@ namespace Applespace.Repositorio.Produto
                 cmd.ExecuteNonQuery();
             }
         }
+
         public void Adicionar(Produtos produto)
         {
             using (MySqlConnection conn = _db.GetConnection())
@@ -82,24 +89,23 @@ namespace Applespace.Repositorio.Produto
                 cmd.ExecuteNonQuery();
             }
         }
-        public bool RemoverProdutos(int id) {
+
+        public bool RemoverProdutos(int id)
+        {
             using (MySqlConnection conn = _db.GetConnection())
             {
-     
-
                 string sql = "DELETE FROM produtos WHERE Cod_Barra = @codBarra";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@codBarra", id);
 
                 int linhasAfetadas = cmd.ExecuteNonQuery();
-
-                return linhasAfetadas > 0; 
+                return linhasAfetadas > 0;
             }
         }
+
         public Produtos ListarProduto(int id)
         {
             Produtos produto = null;
-            List<Produtos> prod = new List<Produtos>();
             using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = @"

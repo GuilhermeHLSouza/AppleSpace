@@ -52,8 +52,6 @@ else
                             </td>
                             <td>@item.produtos.valor.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"))</td>
                             <td>@((item.produtos.valor * item.quantidade).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR")))</td>
-
-                            
                             <td>
                                 <form asp-action="DeletarCarrinho" method="post" class="d-inline">
                                     <input type="hidden" name="id" value="@item.idCarrinho" />
@@ -77,21 +75,23 @@ else
                     <div class="mb-3">
                         <label class="form-label">Calcular Frete</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Digite seu CEP" />
-                            <button class="btn btn-outline-primary" type="button">Calcular</button>
+                            <input type="text" id="cep" class="form-control" placeholder="Digite seu CEP" />
+                            <button class="btn btn-outline-primary" type="button" onclick="calcularFrete()">Calcular</button>
                         </div>
+                        <p id="frete-valor" class="mt-2 text-muted"></p>
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Cupom de Desconto</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Insira o código do cupom" />
-                            <button class="btn btn-outline-success" type="button">Aplicar</button>
+                            <input type="text" id="cupom" class="form-control" placeholder="Insira o código do cupom" />
+                            <button class="btn btn-outline-success" type="button" onclick="aplicarCupom()">Aplicar</button>
                         </div>
+                        <p id="cupom-msg" class="mt-2 text-muted"></p>
                     </div>
                     <hr />
                     <div class="d-flex justify-content-between">
                         <strong>Total:</strong>
-                        <strong class="text-success"> @total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"))</strong>
+                        <strong class="text-success" id="total-pedido"> @total.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("pt-BR"))</strong>
                     </div>
                     <button class="btn btn-primary w-100 mt-4">Finalizar Compra</button>
                 </div>
@@ -99,3 +99,84 @@ else
         </div>
     </div>
 }
+
+<script>
+    let valorFrete = 0;
+    let descontoPorcentagem = 0;
+    let valorFixo = 0;
+
+    function calcularFrete() {
+        const cep = document.getElementById("cep").value;
+        const freteValor = document.getElementById("frete-valor");
+
+        if (!cep || cep.length < 8) {
+            freteValor.innerText = "CEP inválido.";
+            return;
+        }
+
+        valorFrete = parseFloat((Math.random() * (20 - 10) + 10).toFixed(2));
+        freteValor.innerText = `Frete estimado: R$ ${valorFrete.toFixed(2).replace('.', ',')}`;
+        atualizarTotal();
+    }
+
+    function aplicarCupom() {
+        const cupomInput = document.getElementById("cupom").value.trim().toUpperCase();
+        const cupomMsg = document.getElementById("cupom-msg");
+
+        fetch(`/Carrinho/ValidarCupom?codigo=${cupomInput}`)
+            .then(response => response.json())
+            .then(data => {
+                if (!data.valido) {
+                    cupomMsg.innerText = "Cupom inválido ou expirado.";
+                    descontoPorcentagem = 0;
+                    valorFixo = 0;
+                    return;
+                }
+
+                const tipo = data.tipo.toLowerCase();
+                const valor = parseFloat(data.valor);
+
+                if (tipo === "frete") {
+                    valorFrete = 0;
+                    descontoPorcentagem = 0;
+                    valorFixo = 0;
+                    cupomMsg.innerText = "Cupom aplicado: Frete grátis.";
+                } else if (tipo === "porcentagem") {
+                    descontoPorcentagem = valor / 100;
+                    valorFixo = 0;
+                    cupomMsg.innerText = `Cupom aplicado: ${valor}% de desconto.`;
+                } else if (tipo === "valorfixo") {
+                    valorFixo = valor;
+                    descontoPorcentagem = 0;
+                    cupomMsg.innerText = `Cupom aplicado: R$ ${valorFixo.toFixed(2).replace('.', ',')} de desconto.`;
+                }
+
+                atualizarTotal();
+            });
+    }
+
+    function atualizarTotal() {
+        const totalElemento = document.getElementById("total-pedido");
+        const totalOriginal = parseFloat('@total'.replace(',', '.'));
+        let totalComFrete = totalOriginal + valorFrete;
+
+        if (descontoPorcentagem > 0) {
+            totalComFrete -= (totalComFrete * descontoPorcentagem);
+        } else if (valorFixo > 0) {
+            totalComFrete -= valorFixo;
+        }
+
+        if (totalComFrete < 0) totalComFrete = 0;
+
+        totalElemento.innerText = `R$ ${totalComFrete.toFixed(2).replace('.', ',')}`;
+    }
+
+    // Máscara de CEP
+    document.getElementById("cep").addEventListener("input", function (e) {
+        let cep = e.target.value.replace(/\D/g, "");
+        if (cep.length > 5) {
+            cep = cep.slice(0, 5) + "-" + cep.slice(5, 8);
+        }
+        e.target.value = cep;
+    });
+</script>

@@ -1,5 +1,4 @@
 using System.Diagnostics;
-using System.Runtime.Intrinsics.Arm;
 using Applespace.Data;
 using Applespace.Libraries.LoginClientes;
 using Applespace.Models;
@@ -7,37 +6,40 @@ using Applespace.Repositorio.Carrinho;
 using Applespace.Repositorio.Login;
 using Applespace.Repositorio.Produto;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Elfie.Diagnostics;
-using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 
 namespace Applespace.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly Database db = new Database();
+        private readonly Database _db;
         private IProdutoRepositorio? _produtoRepositorio;
         private ILoginRepositorio? _loginRepositorio;
         private LoginClientes _LoginClientes;
         private ICarrinhoRepositorio? _carrinhoRepositorio;
-        public HomeController(ILogger<HomeController> logger, IProdutoRepositorio produto, ILoginRepositorio login, 
-            LoginClientes loginClientes, ICarrinhoRepositorio carrinho)
+
+        public HomeController(
+            ILogger<HomeController> logger,
+            IProdutoRepositorio produto,
+            ILoginRepositorio login,
+            LoginClientes loginClientes,
+            ICarrinhoRepositorio carrinho,
+            Database db)
         {
             _logger = logger;
             _produtoRepositorio = produto;
             _loginRepositorio = login;
             _LoginClientes = loginClientes;
             _carrinhoRepositorio = carrinho;
+            _db = db;
         }
-
 
         public IActionResult Index(string search)
         {
             List<Produtos> produto = new List<Produtos>();
 
-            using (MySqlConnection conn = db.GetConnection())
+            using (MySqlConnection conn = _db.GetConnection())
             {
                 string sql = "SELECT * FROM Produtos";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
@@ -69,16 +71,12 @@ namespace Applespace.Controllers
             return View(produto);
         }
 
-
-        public IActionResult Produto(int id) {
-
+        public IActionResult Produto(int id)
+        {
             Produtos produto = null;
-            List<Produtos> prod = new List<Produtos>();
-            using (MySqlConnection conn = db.GetConnection())
+            using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = @"
-                                SELECT * FROM Produtos
-                                WHERE Produtos.Cod_Barra = @id";
+                string sql = @"SELECT * FROM Produtos WHERE Produtos.Cod_Barra = @id";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 using (var reader = cmd.ExecuteReader())
@@ -98,13 +96,11 @@ namespace Applespace.Controllers
                 }
             }
 
-
             return View(produto);
         }
-        public IActionResult AdicionarCarrinho ()
-        {
-            return View();     
-        }
+
+        public IActionResult AdicionarCarrinho() => View();
+
         [HttpPost]
         public IActionResult AdicionarCarrinho(int codBarra, int? quantidade)
         {
@@ -114,16 +110,13 @@ namespace Applespace.Controllers
                 return RedirectToAction("Login");
             }
 
-            int qtd = quantidade ?? 1; 
+            int qtd = quantidade ?? 1;
             _carrinhoRepositorio?.AdicionarCarrinho(codBarra, qtd, cliente.idCliente);
 
             return RedirectToAction("Produto", new { id = codBarra });
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+        public IActionResult Login() => View();
 
         [HttpPost]
         public IActionResult Login(Clientes cli)
@@ -135,16 +128,13 @@ namespace Applespace.Controllers
                 _LoginClientes.Login(loginDB);
                 return RedirectToAction("Perfil");
             }
-            else
-            {
-                ViewData["msg"] = "Usuário inválido, verifique e-mail e senha";
-                return View();
-            }
-        }
-        public IActionResult Cadastrar() 
-        {
+
+            ViewData["msg"] = "Usuário inválido, verifique e-mail e senha";
             return View();
         }
+
+        public IActionResult Cadastrar() => View();
+
         [HttpPost]
         public IActionResult Cadastrar(Clientes cliente)
         {
@@ -154,14 +144,13 @@ namespace Applespace.Controllers
 
         public IActionResult Perfil()
         {
-            Clientes cliente = null;
-            cliente = _LoginClientes.GetCliente();
+            Clientes cliente = _LoginClientes.GetCliente();
 
             if (cliente != null)
             {
-                using (MySqlConnection conn = db.GetConnection())
+                using (MySqlConnection conn = _db.GetConnection())
                 {
-                    string sql = @"SELECT * FROM Clientes WHERE Clientes.Email = @email and Clientes.Senha = @senha";
+                    string sql = @"SELECT * FROM Clientes WHERE Email = @email and Senha = @senha";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@email", cliente.email);
                     cmd.Parameters.AddWithValue("@senha", cliente.senha);
@@ -182,21 +171,23 @@ namespace Applespace.Controllers
                             _LoginClientes.Login(cliente);
                             return View(cliente);
                         }
-                        else { return View(nameof(Login)); }
+                        else
+                        {
+                            return View(nameof(Login));
+                        }
                     }
                 }
             }
-            else
-            {
-                return RedirectToAction("Login");
-            }
-        }          
+
+            return RedirectToAction("Login");
+        }
 
         public IActionResult AlterarPerfil()
         {
             Clientes clientes = _LoginClientes.GetCliente();
             return View(clientes);
         }
+
         public IActionResult Alterar(Clientes clientes)
         {
             _loginRepositorio.AtualizarCliente(clientes);
@@ -204,6 +195,7 @@ namespace Applespace.Controllers
             _LoginClientes.Login(clientes);
             return RedirectToAction("Perfil");
         }
+
         public IActionResult SairPerfil()
         {
             _LoginClientes.Logout();
