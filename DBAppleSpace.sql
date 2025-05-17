@@ -94,12 +94,12 @@ CREATE TABLE Entregas (
     FOREIGN KEY (Id_Endereco) REFERENCES Enderecos(Id_Endereco)
 );
 
--- Tabela de Cupons
+-- Tabela Dos Cupons
 CREATE TABLE Cupons (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Codigo VARCHAR(50) NOT NULL UNIQUE,
-    Tipo VARCHAR(20), 
-    Valor DECIMAL(10,2), 
+    Tipo ENUM('porcentagem', 'frete', 'valorfixo') NOT NULL,
+    Valor DECIMAL(10,2),
     Expiracao DATETIME,
     Ativo BOOLEAN DEFAULT TRUE
 );
