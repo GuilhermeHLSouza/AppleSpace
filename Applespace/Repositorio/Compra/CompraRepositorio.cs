@@ -69,8 +69,8 @@ namespace Applespace.Repositorio.Compra
                             cliente.senha = reader.GetString("Senha");
                             cliente.nome = reader.GetString("Nome");
                             cliente.email = reader.GetString("Email");
-                            cliente.CPF = reader.GetInt32("Cpf");
-                            cliente.telefone = reader.GetInt32("Telefone");
+                            cliente.CPF = reader.GetString("Cpf");
+                            cliente.telefone = reader.GetString("Telefone");
                         }
                     }
                 }

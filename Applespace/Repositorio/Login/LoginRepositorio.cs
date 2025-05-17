@@ -30,8 +30,8 @@ namespace Applespace.Repositorio.Login
 
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = clientes.nome;
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = clientes.email;
-                cmd.Parameters.Add("@cpf", MySqlDbType.Int64).Value = clientes.CPF;
-                cmd.Parameters.Add("@telefone", MySqlDbType.Int32).Value = clientes.telefone;
+                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = clientes.CPF;
+                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = clientes.telefone;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = clientes.senha;
                 cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = clientes.idCliente;
 
@@ -48,9 +48,9 @@ namespace Applespace.Repositorio.Login
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.nome;
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.email;
-                cmd.Parameters.Add("@telefone", MySqlDbType.Int64).Value = cliente.telefone;
+                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.telefone;
                 cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = cliente.senha;
-                cmd.Parameters.Add("@cpf", MySqlDbType.Int64).Value = cliente.CPF;
+                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.CPF;
                 cmd.ExecuteNonQuery();
             }
         }

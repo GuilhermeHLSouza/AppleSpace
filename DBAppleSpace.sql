@@ -15,7 +15,7 @@ CREATE TABLE Clientes (
     Id_Cliente INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     Email VARCHAR(150) NOT NULL,
-    Cpf BIGINT NOT NULL,
+    Cpf varchar(15) NOT NULL UNIQUE,
     Telefone INT,
     Senha VARCHAR(25) NOT NULL
 );
@@ -104,5 +104,8 @@ CREATE TABLE Cupons (
     Ativo BOOLEAN DEFAULT TRUE
 );
 
+-- rodar esses comandos apenas caso já tenha rodado o database antes 
+ALTER TABLE Clientes modify Cpf varchar(15) NOT NULL UNIQUE;
+ALTER TABLE Clientes modify Telefone varchar(12) NOT NULL;
 
 

@@ -164,8 +164,8 @@ namespace Applespace.Controllers
                                 senha = reader.GetString("Senha"),
                                 nome = reader.GetString("Nome"),
                                 email = reader.GetString("Email"),
-                                CPF = reader.GetInt32("Cpf"),
-                                telefone = reader.GetInt32("Telefone")
+                                CPF = reader.GetString("Cpf"),
+                                telefone = reader.GetString("Telefone")
                             };
                             _LoginClientes.Logout();
                             _LoginClientes.Login(cliente);
