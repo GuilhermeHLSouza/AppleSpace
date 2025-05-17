@@ -1,37 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\",
+  "WorkspaceRootPath": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\applespace.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\applespace.csproj.backup.tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\applespace.csproj.backup (1).tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\applespace.csproj.backup (1).tmp||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\controllers\\carrinhocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\controllers\\carrinhocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\views\\home\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\views\\home\\perfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\data\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\controllers\\carrinhocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\controllers\\carrinhocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\mlira\\onedrive\\desktop\\nova pasta\\applespace\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|c:\\users\\gui\\desktop\\ds\\vamonessa\\applespace\\applespace\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4BE36CA9-2E59-481F-9F34-04BA19859732}|Applespace\\Applespace.csproj|solutionrelative:applespace\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -42,69 +38,55 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Applespace.csproj.Backup.tmp",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Applespace.csproj.Backup.tmp",
-              "RelativeDocumentMoniker": "AppleSpace\\Applespace.csproj.Backup.tmp",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Applespace.csproj.Backup.tmp",
-              "RelativeToolTip": "AppleSpace\\Applespace.csproj.Backup.tmp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-16T22:35:29.119Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Applespace.csproj.Backup (1).tmp",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Applespace.csproj.Backup (1).tmp",
-              "RelativeDocumentMoniker": "AppleSpace\\Applespace.csproj.Backup (1).tmp",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Applespace.csproj.Backup (1).tmp",
-              "RelativeToolTip": "AppleSpace\\Applespace.csproj.Backup (1).tmp",
-              "ViewState": "AQIAABsAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-05-16T22:35:25.163Z",
+              "Title": "Perfil.cshtml",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Views\\Home\\Perfil.cshtml",
+              "RelativeDocumentMoniker": "Applespace\\Views\\Home\\Perfil.cshtml",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Views\\Home\\Perfil.cshtml",
+              "RelativeToolTip": "Applespace\\Views\\Home\\Perfil.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACAAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-05-16T23:56:15.568Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Database.cs",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Data\\Database.cs",
-              "RelativeDocumentMoniker": "AppleSpace\\Data\\Database.cs",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Data\\Database.cs",
-              "RelativeToolTip": "AppleSpace\\Data\\Database.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAARAAAA",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Data\\Database.cs",
+              "RelativeDocumentMoniker": "Applespace\\Data\\Database.cs",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Data\\Database.cs",
+              "RelativeToolTip": "Applespace\\Data\\Database.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T22:35:02.582Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Program.cs",
-              "RelativeDocumentMoniker": "AppleSpace\\Program.cs",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Program.cs",
-              "RelativeToolTip": "AppleSpace\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Program.cs",
+              "RelativeDocumentMoniker": "Applespace\\Program.cs",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Program.cs",
+              "RelativeToolTip": "Applespace\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T22:31:57.487Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T22:31:57.487Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 0,
               "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "AppleSpace\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "AppleSpace\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAjwBAAAAARAAAA",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Applespace\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Applespace\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAnwM8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-16T22:31:32.302Z",
               "EditorCaption": ""
@@ -113,40 +95,37 @@
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "CarrinhoController.cs",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\CarrinhoController.cs",
-              "RelativeDocumentMoniker": "AppleSpace\\Controllers\\CarrinhoController.cs",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\CarrinhoController.cs",
-              "RelativeToolTip": "AppleSpace\\Controllers\\CarrinhoController.cs",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\CarrinhoController.cs",
+              "RelativeDocumentMoniker": "Applespace\\Controllers\\CarrinhoController.cs",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\CarrinhoController.cs",
+              "RelativeToolTip": "Applespace\\Controllers\\CarrinhoController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T22:31:21.418Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "AppleSpace\\Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "AppleSpace\\Controllers\\AdminController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAWwBEAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-16T22:31:12.869Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T22:31:21.418Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Applespace\\Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Applespace\\Controllers\\AdminController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAWwBEAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-16T22:31:12.869Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "AppleSpace\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\mlira\\OneDrive\\Desktop\\Nova pasta\\AppleSpace\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "AppleSpace\\Views\\Shared\\_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Applespace\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Gui\\Desktop\\DS\\vamonessa\\AppleSpace\\Applespace\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Applespace\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-05-16T22:30:28.826Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-16T22:30:28.826Z"
             }
           ]
         }
