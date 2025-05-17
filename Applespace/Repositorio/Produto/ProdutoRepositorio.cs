@@ -94,11 +94,18 @@ namespace Applespace.Repositorio.Produto
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = "DELETE FROM produtos WHERE Cod_Barra = @codBarra";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@codBarra", id);
+                // 1. Remove todas as entradas do carrinho com esse produto
+                string sqlCarrinho = "DELETE FROM Carrinho WHERE Cod_Barra = @cod";
+                MySqlCommand cmdCarrinho = new MySqlCommand(sqlCarrinho, conn);
+                cmdCarrinho.Parameters.AddWithValue("@cod", id);
+                cmdCarrinho.ExecuteNonQuery();
 
-                int linhasAfetadas = cmd.ExecuteNonQuery();
+                // 2. Agora deleta o produto
+                string sqlProduto = "DELETE FROM Produtos WHERE Cod_Barra = @cod";
+                MySqlCommand cmdProduto = new MySqlCommand(sqlProduto, conn);
+                cmdProduto.Parameters.AddWithValue("@cod", id);
+                int linhasAfetadas = cmdProduto.ExecuteNonQuery();
+
                 return linhasAfetadas > 0;
             }
         }
