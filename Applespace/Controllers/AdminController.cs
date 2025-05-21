@@ -46,6 +46,21 @@ namespace Applespace.Controllers
         public IActionResult PaginaAdm()
         {
             if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
+
+            using var conn = _db.GetConnection();
+
+            // Contagem de produtos
+            var cmdProdutos = new MySqlCommand("SELECT COUNT(*) FROM Produtos", conn);
+            int totalProdutos = Convert.ToInt32(cmdProdutos.ExecuteScalar());
+
+            // Contagem de cupons ativos
+            var cmdCupons = new MySqlCommand("SELECT COUNT(*) FROM Cupons WHERE Ativo = 1", conn);
+            int totalCuponsAtivos = Convert.ToInt32(cmdCupons.ExecuteScalar());
+
+            // Enviar os valores para a View
+            ViewBag.TotalProdutos = totalProdutos;
+            ViewBag.TotalCuponsAtivos = totalCuponsAtivos;
+
             return View();
         }
 

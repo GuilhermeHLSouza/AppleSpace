@@ -1,28 +1,146 @@
 ﻿@{
-    ViewData["Title"] = "Painel Administrativo";
+    ViewData["Title"] = "Dashboard";
     Layout = "_LayoutAdmin";
 }
 
-<h2 class="text-center mb-4">Painel do Administrador</h2>
+<h2 class="fw-bold mb-4">Dashboard Apple Space</h2>
 
-<div class="container" style="max-width: 600px;">
-    <div class="list-group shadow-sm">
-        <a href="/Admin/CadastrarProdutos" class="list-group-item list-group-item-action">
-            📦 Cadastrar Produto
-        </a>
-        <a href="/Admin/Produtos" class="list-group-item list-group-item-action">
-            📋 Listar Produtos (Alterar / Remover)
-        </a>
-        <hr />
-        <a href="/Admin/CadastrarCupons" class="list-group-item list-group-item-action">
-            🎟️ Cadastrar Cupom
-        </a>
-        <a href="/Admin/Cupons" class="list-group-item list-group-item-action">
-            📑 Listar Cupons
-        </a>
-        <hr />
-        <a href="/Admin/Logout" class="list-group-item list-group-item-action text-danger">
-            🔒 Sair do Painel
-        </a>
+<!-- Linha dos Cards -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-currency-dollar fs-2 text-primary"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0">Faturamento Mensal</h6>
+                    <h4 class="fw-bold">R$ 225.400,00</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-cart-check fs-2 text-success"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0">Pedidos Hoje</h6>
+                    <h4 class="fw-bold">38</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-box-seam fs-2 text-warning"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0">Produtos Cadastrados</h6>
+                    <h4 class="fw-bold">@ViewBag.TotalProdutos</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-xl-3">
+        <div class="card shadow-sm border-0">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="bi bi-ticket-perforated fs-2 text-danger"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0">Cupons Ativos</h6>
+                    <h4 class="fw-bold">@ViewBag.TotalCuponsAtivos</h4>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+
+
+<!-- Gráficos e Relatórios -->
+<div class="row g-4">
+    <!-- Gráfico de Vendas -->
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Vendas nos Últimos 7 Dias</h6>
+                <canvas id="graficoVendas" height="150"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relatório Resumo -->
+    <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h6 class="fw-bold mb-3">Resumo de Hoje</h6>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Novos Clientes</span>
+                        <strong>5</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Pedidos Cancelados</span>
+                        <strong>1</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Pedidos Entregues</span>
+                        <strong>24</strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Cupons Utilizados</span>
+                        <strong>3</strong>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Importando Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('graficoVendas').getContext('2d');
+    const graficoVendas = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            datasets: [{
+                label: 'Vendas em R$',
+                data: [3500, 4200, 3000, 5100, 4800, 7000, 6300],
+                borderColor: '#0E61FE',
+                backgroundColor: 'rgba(14, 97, 254, 0.1)',
+                tension: 0.3,
+                fill: true,
+                pointBackgroundColor: '#0E61FE'
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return 'R$ ' + value;
+                        }
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+</script>
