@@ -32,7 +32,6 @@ namespace Applespace.Repositorio.Produto
                             descricao = reader.GetString("Descricao"),
                             nome = reader.GetString("Nome"),
                             estoque = reader.GetInt32("Estoque"),
-                            idAdm = reader.GetInt32("id_Adm"),
                             idCate = reader.GetInt32("id_Cate"),
                         });
                     }
@@ -81,7 +80,6 @@ namespace Applespace.Repositorio.Produto
                 cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
                 cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.descricao;
                 cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.estoque;
-                cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = produto.idAdm;
                 cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
                 cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
                 cmd.Parameters.Add("@emDestaque", MySqlDbType.Bit).Value = produto.emDestaque;
@@ -133,7 +131,6 @@ namespace Applespace.Repositorio.Produto
                             img = reader.GetString("Img"),
                             estoque = reader.GetInt32("Estoque"),
                             idCate = reader.GetInt32("id_Cate"),
-                            idAdm = reader.GetInt32("id_Adm"),
                             emDestaque = reader.GetBoolean("EmDestaque"),
                         };
                     }

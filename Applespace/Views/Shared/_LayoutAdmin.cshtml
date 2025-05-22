@@ -1,5 +1,5 @@
 @{
-    var admin = Newtonsoft.Json.JsonConvert.DeserializeObject<Applespace.Models.Administradores>(
+    var admin = Newtonsoft.Json.JsonConvert.DeserializeObject<Applespace.Models.Clientes>(
         Context.Session.GetString("adminLogado") ?? "{}"
     );
 }
@@ -24,7 +24,7 @@
             <!-- PERFIL ADMIN -->
             <div class="profile">
                 <img src="/img/armando.jpg" alt="Avatar Admin">
-                <div class="name">Olá, @admin?.Nome</div>
+                <div class="name">Olá, @admin.nome</div>
                 <div class="role">Administrador</div>
             </div>
 

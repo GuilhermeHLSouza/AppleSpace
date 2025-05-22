@@ -11,11 +11,6 @@ namespace Applespace.Models
         public string? img { get; set; }
         public bool emDestaque { get; set; }
 
-
-
-        public int idAdm { get; set; }
-        public Administradores? Administradores { get; set; }
-
         public int idCate { get; set; }
         public Categorias? Categoria { get; set; }
 

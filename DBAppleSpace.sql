@@ -1,23 +1,15 @@
 CREATE DATABASE DbAppleSpace;
 USE DbAppleSpace;
 
--- Tabela de Administradores
-CREATE TABLE Administradores (
-    Id_Adm INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(50) NOT NULL,
-    Telefone INT,
-    Email VARCHAR(150) NOT NULL,
-    Senha VARCHAR(25) NOT NULL
-);
-
--- Tabela de Clientes
-CREATE TABLE Clientes (
-    Id_Cliente INT PRIMARY KEY AUTO_INCREMENT,
+-- Tabela de Usuários
+CREATE TABLE Usuario (
+    Id_Usuario INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     Email VARCHAR(150) NOT NULL,
-    Cpf varchar(15) NOT NULL UNIQUE,
-    Telefone INT,
-    Senha VARCHAR(25) NOT NULL
+    Cpf VARCHAR(15) NOT NULL UNIQUE,
+    Telefone VARCHAR(12) NOT NULL,
+    Senha VARCHAR(25) NOT NULL,
+    Adm BOOLEAN DEFAULT FALSE
 );
 
 -- Tabela de Endereços
@@ -28,8 +20,8 @@ CREATE TABLE Enderecos (
     Rua VARCHAR(75) NOT NULL,
     Bairro VARCHAR(50) NOT NULL,
     Complemento VARCHAR(50),
-    Id_Cliente INT,
-    FOREIGN KEY (Id_Cliente) REFERENCES Clientes(Id_Cliente)
+    Id_Usuario INT,
+    FOREIGN KEY (Id_Usuario) REFERENCES Usuario(Id_Usuario)
 );
 
 -- Tabela de Transportadoras
@@ -56,9 +48,7 @@ CREATE TABLE Produtos (
     Estoque SMALLINT NOT NULL,
     Img VARCHAR(500),
     EmDestaque BOOLEAN NOT NULL DEFAULT FALSE,
-    Id_Adm INT,
     Id_Cate INT,
-    FOREIGN KEY (Id_Adm) REFERENCES Administradores(Id_Adm),
     FOREIGN KEY (Id_Cate) REFERENCES Categoria(Id_Cate)
 );
 
@@ -68,9 +58,9 @@ CREATE TABLE Carrinho (
     Quantidade SMALLINT NOT NULL,
     Valor DOUBLE(9,2) NOT NULL,
     Cod_Barra INT,
-    Id_Cliente INT,
+    Id_Usuario INT,
     FOREIGN KEY (Cod_Barra) REFERENCES Produtos(Cod_Barra),
-    FOREIGN KEY (Id_Cliente) REFERENCES Clientes(Id_Cliente)
+    FOREIGN KEY (Id_Usuario) REFERENCES Usuario(Id_Usuario)
 );
 
 -- Tabela de Vendas
@@ -94,7 +84,7 @@ CREATE TABLE Entregas (
     FOREIGN KEY (Id_Endereco) REFERENCES Enderecos(Id_Endereco)
 );
 
--- Tabela Dos Cupons
+-- Tabela dos Cupons
 CREATE TABLE Cupons (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Codigo VARCHAR(50) NOT NULL UNIQUE,
@@ -104,25 +94,38 @@ CREATE TABLE Cupons (
     Ativo BOOLEAN DEFAULT TRUE
 );
 
--- rodar esses comandos apenas caso já tenha rodado o database antes 
-ALTER TABLE Clientes modify Cpf varchar(15) NOT NULL UNIQUE;
-ALTER TABLE Clientes modify Telefone varchar(12) NOT NULL;
+-- Inserts Categorias
+INSERT INTO Categoria(Nome_Cate)
+values ("iphone");
+
+INSERT INTO Categoria(Nome_Cate)
+values ("iPads");
+
+INSERT INTO Categoria(Nome_Cate)
+values ("Apple Watchs");
+
+INSERT INTO Categoria(Nome_Cate)
+values ("AirPods");
+
+INSERT INTO Categoria(Nome_Cate)
+values ("MacBooks");
+
+
 
 -- Categoria 1: iPhones
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'iPhone 15 Pro', 
   'O novo iPhone com chip A17 Pro e design de titânio.', 
   7999.00, 
   50, 
   'https://imgs.casasbahia.com.br/55067421/1g.jpg?imwidth=1000', 
-  TRUE, 
-  1, 
+  TRUE,  
   1
 );
 
 -- Categoria 2: iPads
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'iPad Air (M2)', 
   'iPad leve e potente com chip M2 e tela Liquid Retina.', 
@@ -130,12 +133,11 @@ VALUES (
   30, 
   'https://http2.mlstatic.com/D_NQ_NP_996392-MLU77326285741_062024-O.webp', 
   FALSE, 
-  1, 
   2
 );
 
 -- Categoria 3: Apple Watchs
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'Apple Watch Series 9', 
   'Relógio com tela always-on e sensor de temperatura.', 
@@ -143,12 +145,11 @@ VALUES (
   20, 
   'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-card-40-s9-202403?wid=600&hei=600&fmt=jpeg&qlt=95&.v=1707850634814', 
   TRUE, 
-  1, 
   3
 );
 
 -- Categoria 4: AirPods
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'AirPods Pro (2ª geração)', 
   'Fones com cancelamento ativo de ruído, chip H2 e estojo USB-C.', 
@@ -156,12 +157,11 @@ VALUES (
   40, 
   'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MME73?wid=532&hei=582&fmt=png-alpha&.v=1632861342000', 
   FALSE, 
-  1, 
   4
 );
 
 -- Categoria 5: MacBooks
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'MacBook Pro 14" (M3)', 
   'Notebook com chip M3, tela Liquid Retina XDR e até 22h de bateria.', 
@@ -169,10 +169,9 @@ VALUES (
   15, 
   'https://www.goimports.com.br/image/catalog/0%20macm3/m.3PRO/mbp14-m3-max-pro-spaceblack-gallery1-202310.png', 
   TRUE, 
-  1, 
   5
 );
-INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Adm, Id_Cate)
+INSERT INTO Produtos (Nome, Descricao, Preco, Estoque, Img, EmDestaque, Id_Cate)
 VALUES (
   'iPhone 16 Pro',
   'Smartphone premium com chip A18 Pro, câmera tripla de 48MP e design em titânio.',
@@ -180,6 +179,5 @@ VALUES (
   50,
   'https://imgs.casasbahia.com.br/1569849158/1xg.jpg?imwidth=500',
   TRUE,
-  1,
   1
 );

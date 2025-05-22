@@ -18,7 +18,6 @@
                     <th>Preço</th>
                     <th>Categoria</th>
                     <th>Quantidade</th>
-                    <th>Administrador</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -31,7 +30,6 @@
                         <td>R$ @produto.valor.ToString("F2")</td>
                         <td>@produto.idCate</td>
                         <td>@produto.estoque</td>
-                        <td>@produto.idAdm</td>
                         <td class="d-flex justify-content-center gap-2">
                             <a href="/Admin/Alterar/@produto.codBarra" class="btn btn-sm btn-warning">Alterar</a>
                             <a href="/Admin/Remover/@produto.codBarra" class="btn btn-sm btn-danger">Remover</a>

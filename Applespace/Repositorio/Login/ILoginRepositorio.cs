@@ -6,7 +6,6 @@ namespace Applespace.Repositorio.Login
     {
         public Clientes Login(string email, string senha);
         public void cadastrar(Clientes cliente);
-        public Administradores LoginAdm(string nome, string senha, int id);
         public void AtualizarCliente(Clientes clientes);
     }
 }

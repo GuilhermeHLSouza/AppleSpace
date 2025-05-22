@@ -23,30 +23,15 @@ namespace Applespace.Controllers
             _db = db;
         }
 
-        [HttpGet]
+
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(PaginaAdm));
         }
 
-        [HttpPost]
-        public IActionResult Index(Administradores Adm)
-        {
-            var loginDB = _loginRepositorio.LoginAdm(Adm.Nome, Adm.Senha, Adm.IdAdm);
-            if (loginDB != null)
-            {
-                HttpContext.Session.SetString("adminLogado", JsonConvert.SerializeObject(loginDB));
-                return RedirectToAction(nameof(PaginaAdm));
-            }
-
-            ViewData["msg"] = "Usuário inválido, verifique nome, senha ou ID.";
-            return View();
-        }
 
         public IActionResult PaginaAdm()
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
-
             using var conn = _db.GetConnection();
 
             // Contagem de produtos

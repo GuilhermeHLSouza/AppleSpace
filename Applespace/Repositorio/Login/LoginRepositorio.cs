@@ -18,13 +18,13 @@ namespace Applespace.Repositorio.Login
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = @"UPDATE Clientes 
+                string sql = @"UPDATE Usuario
                        SET Nome = @nome, 
                            Email = @email, 
                            Cpf = @cpf, 
                            Telefone = @telefone, 
                            Senha = @senha
-                       WHERE Id_Cliente = @id";
+                       WHERE Id_Usuario = @id";
 
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
 
@@ -43,7 +43,7 @@ namespace Applespace.Repositorio.Login
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string Sql = @"insert into Clientes (Nome, Email, Cpf, Telefone, Senha)
+                string Sql = @"insert into Usuario (Nome, Email, Cpf, Telefone, Senha)
                                 values (@nome, @email, @cpf, @telefone, @senha)";
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.nome;
@@ -74,31 +74,6 @@ namespace Applespace.Repositorio.Login
                     Adm.email = Convert.ToString(dr["Email"]);
                     Adm.senha = Convert.ToString(dr["Senha"]);
                     Adm.idCliente = dr.GetInt32("Id_Cliente");
-                }
-                return Adm;
-            }
-        }
-
-        public Administradores LoginAdm(string nome, string senha, int id)
-        {
-            using (MySqlConnection conn = _db.GetConnection())
-            {
-                string sql = "select * from Administradores where Nome = @nome and Senha = @senha and Id_Adm = @idAdm";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = nome;
-                cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = senha;
-                cmd.Parameters.Add("@idAdm", MySqlDbType.Int32).Value = id;
-
-                MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                Administradores Adm = new Administradores();
-
-                while (dr.Read())
-                {
-                    Adm.IdAdm = Convert.ToInt32(dr["Id_Adm"]);
-                    Adm.Nome = Convert.ToString(dr["Nome"]);
-                    Adm.Senha = Convert.ToString(dr["Senha"]);
                 }
                 return Adm;
             }
