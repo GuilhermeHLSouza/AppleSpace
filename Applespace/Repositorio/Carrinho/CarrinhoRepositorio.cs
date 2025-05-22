@@ -18,7 +18,7 @@ namespace Applespace.Repositorio.Carrinho
             using (var conn = _db.GetConnection())
             {
                 string checkSql = @"SELECT Id_Carrinho, Quantidade FROM Carrinho 
-                                    WHERE Cod_Barra = @codBarra AND Id_Cliente = @idCliente";
+                                    WHERE Cod_Barra = @codBarra AND Id_Usuario = @idCliente";
                 MySqlCommand checkCmd = new MySqlCommand(checkSql, conn);
                 checkCmd.Parameters.AddWithValue("@codBarra", codBarra);
                 checkCmd.Parameters.AddWithValue("@idCliente", idCliente);
