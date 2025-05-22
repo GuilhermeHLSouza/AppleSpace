@@ -2,7 +2,7 @@ CREATE DATABASE DbAppleSpace;
 USE DbAppleSpace;
 
 -- Tabela de Usuários
-CREATE TABLE Usuario (
+CREATE TABLE Usuarios (
     Id_Usuario INT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     Email VARCHAR(150) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE Enderecos (
     Bairro VARCHAR(50) NOT NULL,
     Complemento VARCHAR(50),
     Id_Usuario INT,
-    FOREIGN KEY (Id_Usuario) REFERENCES Usuario(Id_Usuario)
+    FOREIGN KEY (Id_Usuario) REFERENCES Usuarios(Id_Usuario)
 );
 
 -- Tabela de Transportadoras
@@ -60,7 +60,7 @@ CREATE TABLE Carrinho (
     Cod_Barra INT,
     Id_Usuario INT,
     FOREIGN KEY (Cod_Barra) REFERENCES Produtos(Cod_Barra),
-    FOREIGN KEY (Id_Usuario) REFERENCES Usuario(Id_Usuario)
+    FOREIGN KEY (Id_Usuario) REFERENCES Usuarios(Id_Usuario)
 );
 
 -- Tabela de Vendas
@@ -96,7 +96,7 @@ CREATE TABLE Cupons (
 
 -- Inserts Categorias
 INSERT INTO Categoria(Nome_Cate)
-values ("iphone");
+values ("iPhones");
 
 INSERT INTO Categoria(Nome_Cate)
 values ("iPads");
