@@ -181,3 +181,12 @@ VALUES (
   TRUE,
   1
 );
+INSERT INTO Usuarios (Nome, Email, Cpf, Telefone, Senha, Adm) 
+VALUES (
+'Admin',
+'Admin@email',
+'12345678911',
+'11998988989',
+'123456',
+TRUE
+);
