@@ -2,6 +2,7 @@
 using Applespace.Data;
 using Applespace.Models;
 using System.Data;
+using Applespace.Libraries.LoginClientes;
 
 namespace Applespace.Repositorio.Login
 {
@@ -18,7 +19,7 @@ namespace Applespace.Repositorio.Login
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = @"UPDATE Usuario
+                string sql = @"UPDATE Usuarios
                        SET Nome = @nome, 
                            Email = @email, 
                            Cpf = @cpf, 
@@ -43,7 +44,7 @@ namespace Applespace.Repositorio.Login
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string Sql = @"insert into Usuario (Nome, Email, Cpf, Telefone, Senha)
+                string Sql = @"insert into Usuarios (Nome, Email, Cpf, Telefone, Senha)
                                 values (@nome, @email, @cpf, @telefone, @senha)";
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
                 cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.nome;
@@ -59,7 +60,7 @@ namespace Applespace.Repositorio.Login
         {
             using (MySqlConnection conn = _db.GetConnection())
             {
-                string sql = "select * from Clientes where Email = @email and Senha = @senha";
+                string sql = "select * from Usuarios where Email = @email and Senha = @senha";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
 
                 cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
@@ -73,7 +74,8 @@ namespace Applespace.Repositorio.Login
                 {
                     Adm.email = Convert.ToString(dr["Email"]);
                     Adm.senha = Convert.ToString(dr["Senha"]);
-                    Adm.idCliente = dr.GetInt32("Id_Cliente");
+                    Adm.idCliente = dr.GetInt32("Id_Usuario");
+                    Adm.adm = dr.GetBoolean("Adm");
                 }
                 return Adm;
             }

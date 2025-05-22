@@ -26,7 +26,7 @@ namespace Applespace.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction(nameof(PaginaAdm));
+            return View();
         }
 
 
@@ -52,14 +52,12 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult CadastrarProdutos()
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             return View();
         }
 
         [HttpPost]
         public IActionResult CadastrarProdutos(Produtos produto)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             _produtoRepositorio?.Adicionar(produto);
             return RedirectToAction(nameof(Produtos));
         }
@@ -67,7 +65,6 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult Produtos()
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             var lista = _produtoRepositorio?.MostrarProdutos();
             return View(lista);
         }
@@ -75,7 +72,6 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult Alterar(int id)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             var produto = _produtoRepositorio?.ListarProduto(id);
             return View(produto);
         }
@@ -83,7 +79,6 @@ namespace Applespace.Controllers
         [HttpPost]
         public IActionResult AlterarProduto(Produtos produto)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             _produtoRepositorio?.EditarProdutos(produto);
             return RedirectToAction(nameof(Produtos));
         }
@@ -91,14 +86,12 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             var produto = _produtoRepositorio?.ListarProduto(id);
             return View(produto);
         }
 
         public IActionResult Excluir(int id)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             _produtoRepositorio?.RemoverProdutos(id);
             return RedirectToAction(nameof(Produtos));
         }
@@ -106,14 +99,12 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult CadastrarCupons()
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
             return View();
         }
 
         [HttpPost]
         public IActionResult CadastrarCupons(Cupom model)
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
 
             // ✅ Validação de tipo
             var tiposValidos = new[] { "porcentagem", "frete", "valorfixo" };
@@ -143,8 +134,6 @@ namespace Applespace.Controllers
         [HttpGet]
         public IActionResult Cupons()
         {
-            if (!AdminAutenticado()) return RedirectToAction(nameof(Index));
-
             List<Cupom> lista = new List<Cupom>();
 
             using var conn = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
@@ -174,12 +163,8 @@ namespace Applespace.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("adminLogado");
-            return RedirectToAction(nameof(Index));
+            return View("~/Views/Home/Index.cshtml");
         }
 
-        private bool AdminAutenticado()
-        {
-            return !string.IsNullOrEmpty(HttpContext.Session.GetString("adminLogado"));
-        }
     }
 }

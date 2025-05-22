@@ -8,6 +8,7 @@
         public string senha { get; set; }
         public string telefone {  get; set; }
         public string CPF { get; set; }
+        public bool adm { get; set; }
 
     }
 }

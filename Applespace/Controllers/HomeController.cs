@@ -126,7 +126,14 @@ namespace Applespace.Controllers
             if (loginDB != null)
             {
                 _LoginClientes.Login(loginDB);
-                return RedirectToAction("Perfil");
+                if (loginDB.adm)
+                {
+                    return View("~/Views/Admin/PaginaAdm.cshtml");
+                }
+                else
+                {
+                    return RedirectToAction("Perfil");
+                }
             }
 
             ViewData["msg"] = "Usuário inválido, verifique e-mail e senha";
@@ -150,7 +157,7 @@ namespace Applespace.Controllers
             {
                 using (MySqlConnection conn = _db.GetConnection())
                 {
-                    string sql = @"SELECT * FROM Clientes WHERE Email = @email and Senha = @senha";
+                    string sql = @"SELECT * FROM Usuarios WHERE Email = @email and Senha = @senha";
                     MySqlCommand cmd = new MySqlCommand(sql, conn);
                     cmd.Parameters.AddWithValue("@email", cliente.email);
                     cmd.Parameters.AddWithValue("@senha", cliente.senha);
@@ -160,7 +167,7 @@ namespace Applespace.Controllers
                         {
                             cliente = new Clientes
                             {
-                                idCliente = reader.GetInt32("Id_Cliente"),
+                                idCliente = reader.GetInt32("Id_Usuario"),
                                 senha = reader.GetString("Senha"),
                                 nome = reader.GetString("Nome"),
                                 email = reader.GetString("Email"),
