@@ -47,7 +47,7 @@ namespace Applespace.Repositorio.Carrinho
                 precoCmd.Parameters.AddWithValue("@cod", codBarra);
                 decimal valor = Convert.ToDecimal(precoCmd.ExecuteScalar());
 
-                string insertSql = @"INSERT INTO Carrinho (Cod_Barra, Quantidade, Valor, Id_Cliente)
+                string insertSql = @"INSERT INTO Carrinho (Cod_Barra, Quantidade, Valor, Id_Usuario)
                                      VALUES (@codBarra, @quantidade, @valor, @idCliente)";
                 MySqlCommand insertCmd = new MySqlCommand(insertSql, conn);
                 insertCmd.Parameters.AddWithValue("@codBarra", codBarra);
@@ -65,7 +65,7 @@ namespace Applespace.Repositorio.Carrinho
             {
                 string sql = @"SELECT * FROM Carrinho 
                                INNER JOIN Produtos ON Carrinho.Cod_Barra = Produtos.Cod_Barra 
-                               WHERE Id_Cliente = @idCliente";
+                               WHERE Id_Usuario = @idCliente";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 cmd.Parameters.AddWithValue("@idCliente", id);
 
@@ -79,7 +79,7 @@ namespace Applespace.Repositorio.Carrinho
                             quantidade = reader.GetInt32("Quantidade"),
                             preco = reader.GetDouble("Valor"),
                             codBarra = reader.GetInt32("Cod_Barra"),
-                            idCliente = reader.GetInt32("Id_Cliente"),
+                            idCliente = reader.GetInt32("Id_Usuario"),
                             produtos = new Produtos
                             {
                                 nome = reader.GetString("Nome"),
