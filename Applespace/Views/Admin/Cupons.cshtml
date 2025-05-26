@@ -18,6 +18,7 @@
                     <th>Valor</th>
                     <th>Expiração</th>
                     <th>Ativo</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -46,8 +47,8 @@
                             }
                         </td>
 
-
                         <td>@cupom.Expiracao.ToString("dd/MM/yyyy")</td>
+
                         <td>
                             @if (cupom.Ativo)
                             {
@@ -57,6 +58,20 @@
                             {
                                 <span class="badge bg-danger">Não</span>
                             }
+                        </td>
+
+                        <td>
+                            <form asp-action="AlterarStatusCupom" method="post">
+                                <input type="hidden" name="id" value="@cupom.Id" />
+                                @if (cupom.Ativo)
+                                {
+                                    <button type="submit" class="btn btn-sm btn-secondary">Desativar</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-sm btn-secondary">Ativar</button>
+                                }
+                            </form>
                         </td>
                     </tr>
                 }

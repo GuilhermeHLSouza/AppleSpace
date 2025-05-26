@@ -15,13 +15,13 @@
 
     <form asp-action="Login" method="post">
         <div class="form-group mb-3">
-            <label asp-for="email">Email</label>
-            <input asp-for="email" class="form-control" placeholder="Digite seu email" />
+            <label asp-for="Email">Email</label>
+            <input asp-for="Email" class="form-control" placeholder="Digite seu email" />
         </div>
 
         <div class="form-group mb-3">
-            <label asp-for="senha">Senha</label>
-            <input asp-for="senha" class="form-control" placeholder="Digite sua senha" type="password" />
+            <label asp-for="Senha">Senha</label>
+            <input asp-for="Senha" class="form-control" placeholder="Digite sua senha" type="password" />
         </div>
 
         <button type="submit" class="btn btn-primary w-100">Entrar</button>
@@ -29,6 +29,6 @@
 
     <div class="text-center mt-3">
         <span>Não tem uma conta?</span>
-        <a href="@Url.Action("Cadastrar", "Home")">Cadastre-se aqui</a>
+        <a href="@Url.Action("Cadastrar", "Login")">Cadastre-se aqui</a>
     </div>
 </div>

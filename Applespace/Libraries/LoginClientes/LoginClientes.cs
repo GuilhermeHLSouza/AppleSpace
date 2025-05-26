@@ -1,39 +1,37 @@
 ﻿using Applespace.Models;
 using Newtonsoft.Json;
+
 namespace Applespace.Libraries.LoginClientes
 {
     public class LoginClientes
     {
-        private string key = "Login.Cliente";
-        private Sessao.Sessao _sessao;
-        
-        public LoginClientes(Sessao.Sessao sessao) 
+        private readonly Sessao.Sessao _sessao;
+        private const string chave = "usuarioLogado";
+
+        public LoginClientes(Sessao.Sessao sessao)
         {
             _sessao = sessao;
         }
 
-        public void Login(Clientes clientes)
+        public void Login(Clientes cliente)
         {
-            string loginJSONString = JsonConvert.SerializeObject(clientes);
-            _sessao.Gravar(key, loginJSONString);
+            string clienteJson = JsonConvert.SerializeObject(cliente);
+            _sessao.Criar(chave, clienteJson);
         }
 
-        public Clientes GetCliente()
+        public Clientes GetUsuario()
         {
-
-            if (_sessao.Existe(key))
+            if (_sessao.Existe(chave))
             {
-                string loginJSONString = _sessao.Consultar(key);
-                return JsonConvert.DeserializeObject<Clientes>(loginJSONString);
+                string clienteJson = _sessao.Consultar(chave);
+                return JsonConvert.DeserializeObject<Clientes>(clienteJson);
             }
-            else
-            {
-                return null;
-            }
+            return null;
         }
+
         public void Logout()
         {
-            _sessao.RemoverTodos();
+            _sessao.Remover(chave);
         }
     }
 }

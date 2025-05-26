@@ -27,12 +27,14 @@ namespace Applespace.Repositorio.Produto
                     {
                         produtoList.Add(new Produtos
                         {
-                            codBarra = reader.GetInt32("Cod_Barra"),
-                            valor = reader.GetDecimal("Preco"),
-                            descricao = reader.GetString("Descricao"),
-                            nome = reader.GetString("Nome"),
-                            estoque = reader.GetInt32("Estoque"),
-                            idCate = reader.GetInt32("id_Cate"),
+                            CodBarra = reader.GetInt32("Cod_Barra"),
+                            Valor = reader.GetDecimal("Preco"),
+                            Descricao = reader.GetString("Descricao"),
+                            Nome = reader.GetString("Nome"),
+                            Estoque = reader.GetInt32("Estoque"),
+                            IdCate = reader.GetInt32("id_Cate"),
+                            Img = reader.GetString("Img"),
+
                         });
                     }
                 }
@@ -54,14 +56,14 @@ namespace Applespace.Repositorio.Produto
                            EmDestaque=@destaque
                        WHERE Cod_Barra=@codigo";
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
-                cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
-                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.descricao;
-                cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.estoque;
-                cmd.Parameters.Add("@codigo", MySqlDbType.Int32).Value = produto.codBarra;
-                cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
-                cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
-                cmd.Parameters.Add("@destaque", MySqlDbType.Bit).Value = produto.emDestaque;
+                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.Nome;
+                cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.Valor;
+                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.Descricao;
+                cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.Estoque;
+                cmd.Parameters.Add("@codigo", MySqlDbType.Int32).Value = produto.CodBarra;
+                cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.IdCate;
+                cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.Img;
+                cmd.Parameters.Add("@destaque", MySqlDbType.Bit).Value = produto.EmDestaque;
                 cmd.ExecuteNonQuery();
             }
         }
@@ -71,18 +73,18 @@ namespace Applespace.Repositorio.Produto
             using (MySqlConnection conn = _db.GetConnection())
             {
                 string Sql = @"INSERT INTO Produtos 
-                        (Nome, Preco, Descricao, Estoque, Id_Adm, Id_Cate, Img, EmDestaque)
+                        (Nome, Preco, Descricao, Estoque, Id_Cate, Img, EmDestaque)
                        VALUES 
-                        (@nome, @preco, @descricao, @estoque, @idAdm, @idCate, @img, @emDestaque)";
+                        (@nome, @preco, @descricao, @estoque, @idCate, @img, @emDestaque)";
 
                 MySqlCommand cmd = new MySqlCommand(Sql, conn);
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.nome;
-                cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.valor;
-                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.descricao;
-                cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.estoque;
-                cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.idCate;
-                cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.img;
-                cmd.Parameters.Add("@emDestaque", MySqlDbType.Bit).Value = produto.emDestaque;
+                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = produto.Nome;
+                cmd.Parameters.Add("@preco", MySqlDbType.Decimal).Value = produto.Valor;
+                cmd.Parameters.Add("@descricao", MySqlDbType.Text).Value = produto.Descricao;
+                cmd.Parameters.Add("@estoque", MySqlDbType.Int32).Value = produto.Estoque;
+                cmd.Parameters.Add("@idCate", MySqlDbType.Int32).Value = produto.IdCate;
+                cmd.Parameters.Add("@img", MySqlDbType.VarChar).Value = produto.Img;
+                cmd.Parameters.Add("@emDestaque", MySqlDbType.Bit).Value = produto.EmDestaque;
 
                 cmd.ExecuteNonQuery();
             }
@@ -124,14 +126,14 @@ namespace Applespace.Repositorio.Produto
                     {
                         produto = new Produtos
                         {
-                            codBarra = reader.GetInt32("Cod_Barra"),
-                            valor = reader.GetDecimal("Preco"),
-                            descricao = reader.GetString("Descricao"),
-                            nome = reader.GetString("Nome"),
-                            img = reader.GetString("Img"),
-                            estoque = reader.GetInt32("Estoque"),
-                            idCate = reader.GetInt32("id_Cate"),
-                            emDestaque = reader.GetBoolean("EmDestaque"),
+                            CodBarra = reader.GetInt32("Cod_Barra"),
+                            Valor = reader.GetDecimal("Preco"),
+                            Descricao = reader.GetString("Descricao"),
+                            Nome = reader.GetString("Nome"),
+                            Img = reader.GetString("Img"),
+                            Estoque = reader.GetInt32("Estoque"),
+                            IdCate = reader.GetInt32("id_Cate"),
+                            EmDestaque = reader.GetBoolean("EmDestaque"),
                         };
                     }
                 }

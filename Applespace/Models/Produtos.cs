@@ -1,20 +1,17 @@
-﻿
-namespace Applespace.Models
+﻿namespace Applespace.Models
 {
     public class Produtos
     {
-        public int codBarra { get; set; }
-        public string? descricao { get; set; }
-        public decimal valor { get; set; }
-        public string? nome { get; set; }
-        public int estoque { get; set; }
-        public string? img { get; set; }
-        public bool emDestaque { get; set; }
+        public int CodBarra { get; set; }
+        public string Nome { get; set; }
+        public string Descricao { get; set; }
+        public decimal Valor { get; set; }
+        public int Estoque { get; set; }
+        public string Img { get; set; }
+        public bool EmDestaque { get; set; }
+        public int IdCate { get; set; }
 
-        public int idCate { get; set; }
-        public Categorias? Categoria { get; set; }
-
-        public int Id_Cate { get; set; }
-
+        public int IdCategoria { get; set; }  // Chave estrangeira
+        public Categorias Categoria { get; set; }  // Propriedade de navegação
     }
 }

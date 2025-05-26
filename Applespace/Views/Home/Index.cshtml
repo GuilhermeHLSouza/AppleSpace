@@ -2,8 +2,7 @@
 @{
     ViewData["Title"] = "Inicio";
 }
-<br />
-<br />
+
 
 
 
@@ -44,19 +43,42 @@
 <br />
 <br />
 
+<section>
+    <h2 id="destaques" class="fw-bold fs-2 mb-4 border-bottom pb-2">Destaques</h2>
+    <div class="row g-4">
+        @foreach (var prod in Model.Where(p => p.EmDestaque == true))
+        {
+            <div class="col-6 col-md-4 col-lg-3 d-flex">
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
+                    <div class="card-body">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                            Comprar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
 <section class="container py-5">
     <h2 id="iphone" class="fw-bold fs-2 mb-4 border-bottom pb-2">iPhones</h2>
     <div class="row g-4">
-        @foreach (var prod in Model.Where(p => p.Id_Cate == 1))
+        @foreach (var prod in Model.Where(p => p.IdCate == 1))
         {
             <div class="col-6 col-md-4 col-lg-3 d-flex">
-                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
-                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">@prod.nome</h5>
-                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
-                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Comprar
                         </a>
                     </div>
@@ -69,16 +91,16 @@
 <section class="container py-5">
     <h2 id="ipad" class="fw-bold fs-2 mb-4 border-bottom pb-2">iPads</h2>
     <div class="row g-4">
-        @foreach (var prod in Model.Where(p => p.Id_Cate == 2))
+        @foreach (var prod in Model.Where(p => p.IdCate == 2))
         {
             <div class="col-6 col-md-4 col-lg-3 d-flex">
-                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
-                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">@prod.nome</h5>
-                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
-                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -91,16 +113,16 @@
 <section class="container py-5">
     <h2 id="watch" class="fw-bold fs-2 mb-4 border-bottom pb-2">Apple Watch</h2>
     <div class="row g-4">
-        @foreach (var prod in Model.Where(p => p.Id_Cate == 3))
+        @foreach (var prod in Model.Where(p => p.IdCate == 3))
         {
             <div class="col-6 col-md-4 col-lg-3 d-flex">
-                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
-                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">@prod.nome</h5>
-                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
-                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -113,16 +135,16 @@
 <section class="container py-5">
     <h2 id="airpods" class="fw-bold fs-2 mb-4 border-bottom pb-2">AirPods</h2>
     <div class="row g-4">
-        @foreach (var prod in Model.Where(p => p.Id_Cate == 4))
+        @foreach (var prod in Model.Where(p => p.IdCate == 4))
         {
             <div class="col-6 col-md-4 col-lg-3 d-flex">
-                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
-                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">@prod.nome</h5>
-                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
-                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Ver Produto
                         </a>
                     </div>
@@ -135,16 +157,16 @@
 <section class="container py-5">
     <h2 id="mac" class="fw-bold fs-2 mb-4 border-bottom pb-2">MacBooks</h2>
     <div class="row g-4">
-        @foreach (var prod in Model.Where(p => p.Id_Cate == 5))
+        @foreach (var prod in Model.Where(p => p.IdCate == 5))
         {
             <div class="col-6 col-md-4 col-lg-3 d-flex">
-                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.codBarra)" style="cursor:pointer;">
-                    <img src="@prod.img" alt="@prod.nome" class="card-img-top p-3 product-img" />
+                <div class="card flex-fill text-center shadow-sm product-card" onclick="AbrirProduto(@prod.CodBarra)" style="cursor:pointer;">
+                    <img src="@prod.Img" alt="@prod.Nome" class="card-img-top p-3 product-img" />
                     <div class="card-body">
-                        <h5 class="card-title fw-semibold">@prod.nome</h5>
-                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.valor.ToString("F2")</p>
-                        <p class="text-muted small">ou 10x de R$ @((prod.valor / 10).ToString("F2"))</p>
-                        <a href="/Home/Produto/@prod.codBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
+                        <h5 class="card-title fw-semibold">@prod.Nome</h5>
+                        <p class="text-primary fw-bold fs-5 mb-1">R$ @prod.Valor.ToString("F2")</p>
+                        <p class="text-muted small">ou 10x de R$ @((prod.Valor / 10).ToString("F2"))</p>
+                        <a href="/Home/Produto/@prod.CodBarra" class="btn btn-outline-primary rounded-pill mt-2 w-100 transition">
                             Comprar
                         </a>
                     </div>

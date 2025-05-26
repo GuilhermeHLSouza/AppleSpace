@@ -12,16 +12,16 @@
             <h5 class="card-title">Você tem certeza que deseja remover o produto abaixo?</h5>
 
             <ul class="list-group list-group-flush my-3">
-                <li class="list-group-item"><strong>Código de Barras:</strong> @Model.codBarra</li>
-                <li class="list-group-item"><strong>Nome:</strong> @Model.nome</li>
-                <li class="list-group-item"><strong>Descrição:</strong> @Model.descricao</li>
-                <li class="list-group-item"><strong>Valor:</strong> R$ @Model.valor.ToString("F2")</li>
-                <li class="list-group-item"><strong>Estoque:</strong> @Model.estoque</li>
-                <li class="list-group-item"><strong>Imagem:</strong> @Model.img</li>
+                <li class="list-group-item"><strong>Código de Barras:</strong> @Model.CodBarra</li>
+                <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
+                <li class="list-group-item"><strong>Descrição:</strong> @Model.Descricao</li>
+                <li class="list-group-item"><strong>Valor:</strong> R$ @Model.Valor.ToString("F2")</li>
+                <li class="list-group-item"><strong>Estoque:</strong> @Model.Estoque</li>
+                <li class="list-group-item"><strong>Imagem:</strong> @Model.Img</li>
             </ul>
 
             <form asp-action="Excluir" method="post">
-                <input type="hidden" name="id" value="@Model.codBarra" />
+                <input type="hidden" name="id" value="@Model.CodBarra" />
                 <button type="submit" class="btn btn-danger">Remover</button>
                 <a href="@Url.Action("PaginaAdm", "Admin")" class="btn btn-secondary">Cancelar</a>
             </form>

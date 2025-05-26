@@ -1,77 +1,76 @@
 ﻿using Applespace.Libraries.LoginClientes;
-using Applespace.Repositorio.Carrinho;
 using Applespace.Models;
+using Applespace.Repositorio.Carrinho;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
 
 namespace Applespace.Controllers
 {
     public class CarrinhoController : Controller
     {
-        private readonly ICarrinhoRepositorio? _carrinhoRepositorio;
-        private readonly LoginClientes _LoginClientes;
+        private readonly ICarrinhoRepositorio _carrinhoRepositorio;
+        private readonly LoginClientes _loginClientes;
 
         public CarrinhoController(ICarrinhoRepositorio carrinhoRepositorio, LoginClientes loginClientes)
         {
             _carrinhoRepositorio = carrinhoRepositorio;
-            _LoginClientes = loginClientes;
+            _loginClientes = loginClientes;
         }
 
         public IActionResult Index()
         {
-            var cliente = _LoginClientes.GetCliente();
-            if (cliente != null)
+            var usuario = _loginClientes.GetUsuario();
+
+            if (usuario != null)
             {
-                var lista = _carrinhoRepositorio?.ListarCarrinho(cliente.idCliente);
+                var lista = _carrinhoRepositorio.ListarCarrinho(usuario.IdCliente);
                 return View(lista);
             }
-            else
-            {
-                return Redirect("Home/Login");
-            }
-        }
 
-        public IActionResult DeletarCarrinho()
-        {
-            return View();
+            return RedirectToAction("Login", "Login");
         }
 
         [HttpPost]
-        public IActionResult DeletarCarrinho(int id)
+        public IActionResult AdicionarCarrinho(int codBarra, int? quantidade)
         {
-            _carrinhoRepositorio?.RemoverCarrinho(id);
+            var usuario = _loginClientes.GetUsuario();
+
+            if (usuario == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            int qtd = quantidade ?? 1;
+
+            _carrinhoRepositorio.AdicionarCarrinho(codBarra, qtd, usuario.IdCliente);
+
             return RedirectToAction("Index");
         }
 
-        public IActionResult ComprarProdutos()
+        [HttpPost]
+        public IActionResult RemoverProdutos(int id)
         {
-            return View();
-        }
-
-        public IActionResult AdicionarProdutos()
-        {
-            return View();
+            _carrinhoRepositorio.RemoverQtdCarrinho(id);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult AdicionarProdutos(int id)
         {
-            _carrinhoRepositorio?.AdicionarQtdCarrinho(id);
+            _carrinhoRepositorio.AdicionarQtdCarrinho(id);
             return RedirectToAction("Index");
         }
 
-        public IActionResult RemoverProdutos(int id)
+        [HttpPost]
+        public IActionResult DeletarCarrinho(int id)
         {
-            _carrinhoRepositorio?.RemoverQtdCarrinho(id);
+            _carrinhoRepositorio.RemoverCarrinho(id);
             return RedirectToAction("Index");
         }
 
-        // ✅ Método para validar cupom usando CarrinhoRepositorio
         [HttpGet]
         public JsonResult ValidarCupom(string codigo)
         {
-            var cupom = _carrinhoRepositorio?.BuscarCupomPorCodigo(codigo);
+            var cupom = _carrinhoRepositorio.BuscarCupomPorCodigo(codigo);
 
             if (cupom == null)
             {
@@ -84,6 +83,38 @@ namespace Applespace.Controllers
                 tipo = cupom.Tipo,
                 valor = cupom.Valor
             });
+        }
+        // 🔹 Adiciona e fica na página
+        [HttpPost]
+        public IActionResult AdicionarSemRedirecionar(int codBarra, int? quantidade)
+        {
+            var usuario = _loginClientes.GetUsuario();
+            if (usuario == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            int qtd = quantidade ?? 1;
+            _carrinhoRepositorio.AdicionarCarrinho(codBarra, qtd, usuario.IdCliente);
+
+            // Volta para a mesma página do produto
+            return RedirectToAction("Produto", "Home", new { id = codBarra });
+        }
+
+        [HttpPost]
+        public IActionResult AdicionarERedirecionar(int codBarra, int? quantidade)
+        {
+            var usuario = _loginClientes.GetUsuario();
+            if (usuario == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            int qtd = quantidade ?? 1;
+            _carrinhoRepositorio.AdicionarCarrinho(codBarra, qtd, usuario.IdCliente);
+
+            // Redireciona direto para o carrinho
+            return RedirectToAction("Index", "Carrinho");
         }
     }
 }

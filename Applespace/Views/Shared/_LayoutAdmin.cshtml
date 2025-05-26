@@ -1,6 +1,6 @@
 @{
-    var admin = Newtonsoft.Json.JsonConvert.DeserializeObject<Applespace.Models.Clientes>(
-        Context.Session.GetString("adminLogado") ?? "{}"
+    var usuarioLogado = Newtonsoft.Json.JsonConvert.DeserializeObject<Applespace.Models.Clientes>(
+        Context.Session.GetString("usuarioLogado") ?? "{}"
     );
 }
 
@@ -19,30 +19,32 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div>
-            
-
             <!-- PERFIL ADMIN -->
             <div class="profile">
                 <img src="/img/armando.jpg" alt="Avatar Admin">
-                <div class="name">Olá, @admin.nome</div>
+                <div class="name">Olá, @usuarioLogado?.Nome</div>
                 <div class="role">Administrador</div>
             </div>
 
             <!-- MENU -->
             <nav>
-                <a href="/Admin/PaginaAdm"><i class="bi bi-house"></i> Dashboard</a>
+                <a href="/Home"><i class="bi bi-house"></i> Home</a>
+                <a href="/Admin/Dashboard"><i class="bi bi-house"></i> Dashboard</a>    
+                
                 <hr />
                 <a href="/Admin/CadastrarProdutos"><i class="bi bi-box"></i> Cadastrar Produto</a>
-                <a href="/Admin/Produtos"><i class="bi bi-card-list"></i>Produtos</a>
+                <a href="/Admin/Produtos"><i class="bi bi-card-list"></i> Produtos</a>
                 <hr />
                 <a href="/Admin/CadastrarCupons"><i class="bi bi-ticket-perforated"></i> Cadastrar Cupom</a>
-                <a href="/Admin/Cupons"><i class="bi bi-ticket"></i>Cupons</a>
+                <a href="/Admin/Cupons"><i class="bi bi-ticket"></i> Cupons</a>
+                
             </nav>
         </div>
 
         <!-- SAIR -->
         <div class="logout">
-            <a href="/Admin/Logout"><i class="bi bi-box-arrow-right"></i> Sair</a>
+            <a href="/Login/Logout"><i class="bi bi-box-arrow-right"></i> Sair</a>
+            
         </div>
     </div>
 
@@ -73,16 +75,6 @@
             flex-direction: column;
             justify-content: space-between;
         }
-
-            .sidebar .logo {
-                text-align: center;
-                margin-bottom: 10px;
-            }
-
-                .sidebar .logo img {
-                    width: 100px;
-                    height: auto;
-                }
 
             .sidebar .profile {
                 text-align: center;

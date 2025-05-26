@@ -7,48 +7,45 @@
 
 <div class="container my-5">
     <form asp-action="AlterarProduto" method="post" class="bg-white p-4 rounded shadow-sm" style="max-width: 600px; margin: auto;">
-        <input type="hidden" asp-for="codBarra" />
+        <input type="hidden" asp-for="CodBarra" />
 
         <h2 class="mb-4 text-center">Alterar Produto</h2>
 
         <div class="mb-3">
             <label class="form-label">Nome:</label>
-            <input asp-for="nome" class="form-control" />
+            <input asp-for="Nome" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Preço:</label>
-            <input asp-for="valor" class="form-control" />
+            <input asp-for="Valor" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Categoria (ID):</label>
-            <input asp-for="idCate" class="form-control" />
+            <input asp-for="IdCate" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Descrição:</label>
-            <input asp-for="descricao" class="form-control" />
+            <input asp-for="Descricao" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Link da Imagem:</label>
-            <input asp-for="img" class="form-control" />
+            <input asp-for="Img" class="form-control" />
         </div>
 
         <div class="mb-3">
             <label class="form-label">Produtos no Estoque:</label>
-            <input asp-for="estoque" class="form-control" />
+            <input asp-for="Estoque" class="form-control" />
         </div>
 
         <div class="form-check mb-4">
-            <input class="form-check-input" type="checkbox" asp-for="emDestaque" />
-            <label class="form-check-label" asp-for="emDestaque">Produto em Destaque</label>
+            <input class="form-check-input" type="checkbox" asp-for="EmDestaque" />
+            <label class="form-check-label" asp-for="EmDestaque">Produto em Destaque</label>
         </div>
 
         <button type="submit" class="btn btn-primary w-100 rounded-pill">Salvar Alterações</button>
     </form>
 </div>
-
-
-

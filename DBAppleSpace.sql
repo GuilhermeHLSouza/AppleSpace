@@ -15,7 +15,7 @@ CREATE TABLE Usuarios (
 -- Tabela de Endereços
 CREATE TABLE Enderecos (
     Id_Endereco SMALLINT PRIMARY KEY AUTO_INCREMENT,
-    CEP INT NOT NULL,
+    CEP VARCHAR(9) NOT NULL,
     Numero TINYINT NOT NULL,
     Rua VARCHAR(75) NOT NULL,
     Bairro VARCHAR(50) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE Transportadoras (
     Id_Tranportadora TINYINT PRIMARY KEY AUTO_INCREMENT,
     Nome VARCHAR(75) NOT NULL,
     Cnpj BIGINT NOT NULL,
-    Telefone INT,
+    Telefone VARCHAR(15) NOT NULL,
     Email VARCHAR(150) NOT NULL
 );
 
@@ -63,11 +63,11 @@ CREATE TABLE Carrinho (
     FOREIGN KEY (Id_Usuario) REFERENCES Usuarios(Id_Usuario)
 );
 
--- Tabela de Vendas
-CREATE TABLE Venda (
-    Id_Venda SMALLINT PRIMARY KEY AUTO_INCREMENT,
+-- Tabela de Pedidos
+CREATE TABLE Pedido (
+    Id_Pedido SMALLINT PRIMARY KEY AUTO_INCREMENT,
     Forma_Pgm VARCHAR(25) NOT NULL,
-    Statu VARCHAR(25) NOT NULL,
+    Status VARCHAR(25) NOT NULL,
     Id_Carrinho INT,
     FOREIGN KEY (Id_Carrinho) REFERENCES Carrinho(Id_Carrinho)
 );
@@ -77,10 +77,10 @@ CREATE TABLE Entregas (
     Id_Entrega SMALLINT PRIMARY KEY AUTO_INCREMENT,
     Statu VARCHAR(25) NOT NULL,
     Id_Tranportadora TINYINT,
-    Id_Venda SMALLINT,
+    Id_Pedido SMALLINT,
     Id_Endereco SMALLINT,
     FOREIGN KEY (Id_Tranportadora) REFERENCES Transportadoras(Id_Tranportadora),
-    FOREIGN KEY (Id_Venda) REFERENCES Venda(Id_Venda),
+    FOREIGN KEY (Id_Pedido) REFERENCES Pedido(Id_Pedido),
     FOREIGN KEY (Id_Endereco) REFERENCES Enderecos(Id_Endereco)
 );
 
@@ -187,6 +187,16 @@ VALUES (
 'Admin@email',
 '12345678911',
 '11998988989',
-'123456',
+'123',
 TRUE
 );
+INSERT INTO Usuarios (Nome, Email, Cpf, Telefone, Senha, Adm) 
+VALUES (
+'Cliente',
+'Cliente@email',
+'12345678912',
+'11998988989',
+'123',
+TRUE
+);
+

@@ -2,15 +2,14 @@
 {
     public class Entregas
     {
-        public int idEntrega { get; set; }
-        public string status { get; set; }
-        public int idTransp {  get; set; }
-        public int idEndereco {  get; set; }
-        public int idVenda {  get; set; }
+        public int IdEntrega { get; set; }
+        public string Status { get; set; }
+        public int IdTransportadora { get; set; }
+        public int IdEndereco { get; set; }
+        public int IdPedido { get; set; }
 
-        public Vendas Vendas { get; set; }
-        public Enderecos Enderecos { get; set; }
-        public Transportadoras Transportadoras { get; set; }
-
+        public Pedido Pedido { get; set; }
+        public Enderecos Endereco { get; set; }
+        public Transportadoras Transportadora { get; set; }
     }
 }

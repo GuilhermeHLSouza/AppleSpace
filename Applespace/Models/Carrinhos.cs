@@ -2,14 +2,12 @@
 {
     public class Carrinhos
     {
-        public int idCarrinho { get; set; }
-        public int quantidade {  get; set; }
-        public double preco {  get; set; }
-        public int codBarra {  get; set; }
-        public Produtos produtos { get; set; }
+        public int IdCarrinho { get; set; }
+        public int Quantidade { get; set; }
+        public double Valor { get; set; }
+        public int CodBarra { get; set; }
+        public int IdCliente { get; set; }
 
-        public int idCliente { get; set; }
-        public Clientes clientes { get; set; }
-
+        public Produtos Produtos { get; set; }
     }
 }

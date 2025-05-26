@@ -2,13 +2,14 @@
 {
     public class Enderecos
     {
-        public int IdEnde { get; set; }
-        public int CEP { get; set; }
-        public int numero { get; set; }
-        public string rua { get; set; }
+        public int IdEndereco { get; set; }
+        public string CEP { get; set; }
+        public string Numero { get; set; }
+        public string Rua { get; set; }
         public string Bairro { get; set; }
-        public string complemento {  get; set; }
-        public int IDCliente {  get; set; }
-        public Clientes cliente { get; set; }
+        public string Complemento { get; set; }
+
+        public int IdUsuario { get; set; }
+        public Clientes Usuario { get; set; }
     }
 }

@@ -25,14 +25,14 @@
                 @foreach (var produto in Model)
                 {
                     <tr>
-                        <td>@produto.codBarra</td>
-                        <td>@produto.nome</td>
-                        <td>R$ @produto.valor.ToString("F2")</td>
-                        <td>@produto.idCate</td>
-                        <td>@produto.estoque</td>
+                        <td>@produto.CodBarra</td>
+                        <td>@produto.Nome</td>
+                        <td>R$ @produto.Valor.ToString("F2")</td>
+                        <td>@produto.IdCate</td>
+                        <td>@produto.Estoque</td>
                         <td class="d-flex justify-content-center gap-2">
-                            <a href="/Admin/Alterar/@produto.codBarra" class="btn btn-sm btn-warning">Alterar</a>
-                            <a href="/Admin/Remover/@produto.codBarra" class="btn btn-sm btn-danger">Remover</a>
+                            <a href="/Admin/Alterar/@produto.CodBarra" class="btn btn-sm btn-warning">Alterar</a>
+                            <a href="/Admin/Remover/@produto.CodBarra" class="btn btn-sm btn-danger">Remover</a>
                         </td>
                     </tr>
                 }

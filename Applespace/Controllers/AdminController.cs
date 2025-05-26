@@ -1,112 +1,121 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Applespace.Models;
 using Applespace.Repositorio.Produto;
-using Applespace.Repositorio.Login;
-using Newtonsoft.Json;
 using MySql.Data.MySqlClient;
 using Applespace.Data;
+using Newtonsoft.Json;
 
 namespace Applespace.Controllers
 {
     public class AdminController : Controller
     {
-        private readonly IProdutoRepositorio? _produtoRepositorio;
-        private readonly ILoginRepositorio? _loginRepositorio;
-        private readonly IConfiguration _configuration;
+        private readonly IProdutoRepositorio _produtoRepositorio;
         private readonly Database _db;
 
-        public AdminController(IProdutoRepositorio produto, ILoginRepositorio loginRepositorio, IConfiguration configuration, Database db)
+        public AdminController(IProdutoRepositorio produtoRepositorio, Database db)
         {
-            _produtoRepositorio = produto;
-            _loginRepositorio = loginRepositorio;
-            _configuration = configuration;
+            _produtoRepositorio = produtoRepositorio;
             _db = db;
         }
 
-
-        public IActionResult Index()
+        // 🔥 Verifica se o usuário é admin
+        private bool UsuarioEhAdmin()
         {
-            return View();
+            var usuarioLogado = JsonConvert.DeserializeObject<Clientes>(
+                HttpContext.Session.GetString("usuarioLogado") ?? ""
+            );
+
+            return usuarioLogado != null && usuarioLogado.Adm;
         }
 
-
-        public IActionResult PaginaAdm()
+        // ✅ DASHBOARD
+        public IActionResult Dashboard()
         {
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+
             using var conn = _db.GetConnection();
 
-            // Contagem de produtos
             var cmdProdutos = new MySqlCommand("SELECT COUNT(*) FROM Produtos", conn);
             int totalProdutos = Convert.ToInt32(cmdProdutos.ExecuteScalar());
 
-            // Contagem de cupons ativos
             var cmdCupons = new MySqlCommand("SELECT COUNT(*) FROM Cupons WHERE Ativo = 1", conn);
             int totalCuponsAtivos = Convert.ToInt32(cmdCupons.ExecuteScalar());
 
-            // Enviar os valores para a View
             ViewBag.TotalProdutos = totalProdutos;
             ViewBag.TotalCuponsAtivos = totalCuponsAtivos;
 
             return View();
         }
 
+        // ✅ PRODUTOS
+
         [HttpGet]
         public IActionResult CadastrarProdutos()
         {
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpPost]
         public IActionResult CadastrarProdutos(Produtos produto)
         {
-            _produtoRepositorio?.Adicionar(produto);
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            _produtoRepositorio.Adicionar(produto);
             return RedirectToAction(nameof(Produtos));
         }
 
-        [HttpGet]
         public IActionResult Produtos()
         {
-            var lista = _produtoRepositorio?.MostrarProdutos();
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            var lista = _produtoRepositorio.MostrarProdutos();
             return View(lista);
         }
 
         [HttpGet]
         public IActionResult Alterar(int id)
         {
-            var produto = _produtoRepositorio?.ListarProduto(id);
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            var produto = _produtoRepositorio.ListarProduto(id);
             return View(produto);
         }
 
         [HttpPost]
         public IActionResult AlterarProduto(Produtos produto)
         {
-            _produtoRepositorio?.EditarProdutos(produto);
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            _produtoRepositorio.EditarProdutos(produto);
             return RedirectToAction(nameof(Produtos));
         }
 
         [HttpGet]
         public IActionResult Remover(int id)
         {
-            var produto = _produtoRepositorio?.ListarProduto(id);
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            var produto = _produtoRepositorio.ListarProduto(id);
             return View(produto);
         }
 
         public IActionResult Excluir(int id)
         {
-            _produtoRepositorio?.RemoverProdutos(id);
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+            _produtoRepositorio.RemoverProdutos(id);
             return RedirectToAction(nameof(Produtos));
         }
+
+        // ✅ CUPONS
 
         [HttpGet]
         public IActionResult CadastrarCupons()
         {
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
             return View();
         }
 
         [HttpPost]
         public IActionResult CadastrarCupons(Cupom model)
         {
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
 
-            // ✅ Validação de tipo
             var tiposValidos = new[] { "porcentagem", "frete", "valorfixo" };
             if (!tiposValidos.Contains(model.Tipo?.ToLower()))
             {
@@ -131,40 +140,69 @@ namespace Applespace.Controllers
             return View();
         }
 
-        [HttpGet]
         public IActionResult Cupons()
         {
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
+
+            // 🔥 Atualiza status dos expirados
+            using (var conn = _db.GetConnection())
+            {
+                string sql = "UPDATE Cupons SET Ativo = 0 WHERE Expiracao < NOW()";
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+            }
+
+            // 🔍 Carrega os cupons
             List<Cupom> lista = new List<Cupom>();
 
-            using var conn = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
-            conn.Open();
-
-            var cmd = new MySqlCommand("SELECT * FROM Cupons ORDER BY Expiracao DESC", conn);
-            using var reader = cmd.ExecuteReader();
-
-            while (reader.Read())
+            using (var conn = _db.GetConnection())
             {
-                var cupom = new Cupom
-                {
-                    Id = reader["Id"] != DBNull.Value ? Convert.ToInt32(reader["Id"]) : 0,
-                    Codigo = reader["Codigo"]?.ToString(),
-                    Tipo = reader["Tipo"]?.ToString(),
-                    Valor = reader["Valor"] != DBNull.Value ? Convert.ToDecimal(reader["Valor"]) : 0m,
-                    Expiracao = reader["Expiracao"] != DBNull.Value ? Convert.ToDateTime(reader["Expiracao"]) : DateTime.MinValue,
-                    Ativo = reader["Ativo"] != DBNull.Value && Convert.ToBoolean(reader["Ativo"])
-                };
+                var cmd = new MySqlCommand("SELECT * FROM Cupons ORDER BY Expiracao DESC", conn);
+                using var reader = cmd.ExecuteReader();
 
-                lista.Add(cupom);
+                while (reader.Read())
+                {
+                    var cupom = new Cupom
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        Codigo = reader["Codigo"].ToString(),
+                        Tipo = reader["Tipo"].ToString(),
+                        Valor = Convert.ToDecimal(reader["Valor"]),
+                        Expiracao = Convert.ToDateTime(reader["Expiracao"]),
+                        Ativo = Convert.ToBoolean(reader["Ativo"])
+                    };
+
+                    lista.Add(cupom);
+                }
             }
 
             return View(lista);
         }
 
-        public IActionResult Logout()
+        // 🔁 Alterar Status (Ativo/Desativo)
+        [HttpPost]
+        public IActionResult AlterarStatusCupom(int id)
         {
-            HttpContext.Session.Remove("adminLogado");
-            return View("~/Views/Home/Index.cshtml");
-        }
+            if (!UsuarioEhAdmin()) return RedirectToAction("Index", "Home");
 
+            using (var conn = _db.GetConnection())
+            {
+                string selectSql = "SELECT Ativo FROM Cupons WHERE Id = @id";
+                var selectCmd = new MySqlCommand(selectSql, conn);
+                selectCmd.Parameters.AddWithValue("@id", id);
+
+                var statusAtual = Convert.ToBoolean(selectCmd.ExecuteScalar());
+                bool novoStatus = !statusAtual;
+
+                string updateSql = "UPDATE Cupons SET Ativo = @ativo WHERE Id = @id";
+                var updateCmd = new MySqlCommand(updateSql, conn);
+                updateCmd.Parameters.AddWithValue("@ativo", novoStatus);
+                updateCmd.Parameters.AddWithValue("@id", id);
+
+                updateCmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("Cupons");
+        }
     }
 }

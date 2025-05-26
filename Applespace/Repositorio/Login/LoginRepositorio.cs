@@ -2,7 +2,6 @@
 using Applespace.Data;
 using Applespace.Models;
 using System.Data;
-using Applespace.Libraries.LoginClientes;
 
 namespace Applespace.Repositorio.Login
 {
@@ -15,70 +14,108 @@ namespace Applespace.Repositorio.Login
             _db = db;
         }
 
-        public void AtualizarCliente(Clientes clientes)
+        public void AtualizarCliente(Clientes cliente)
         {
-            using (MySqlConnection conn = _db.GetConnection())
+            using (var conn = _db.GetConnection())
             {
-                string sql = @"UPDATE Usuarios
-                       SET Nome = @nome, 
-                           Email = @email, 
-                           Cpf = @cpf, 
-                           Telefone = @telefone, 
-                           Senha = @senha
-                       WHERE Id_Usuario = @id";
+                string sql = @"UPDATE Usuarios 
+                               SET Nome = @nome, 
+                                   Email = @email, 
+                                   Cpf = @cpf, 
+                                   Telefone = @telefone, 
+                                   Senha = @senha 
+                               WHERE Id_Usuario = @id";
 
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = clientes.nome;
-                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = clientes.email;
-                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = clientes.CPF;
-                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = clientes.telefone;
-                cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = clientes.senha;
-                cmd.Parameters.Add("@id", MySqlDbType.Int32).Value = clientes.idCliente;
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@nome", cliente.Nome);
+                cmd.Parameters.AddWithValue("@email", cliente.Email);
+                cmd.Parameters.AddWithValue("@cpf", cliente.CPF);
+                cmd.Parameters.AddWithValue("@telefone", cliente.Telefone);
+                cmd.Parameters.AddWithValue("@senha", cliente.Senha);
+                cmd.Parameters.AddWithValue("@id", cliente.IdCliente);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        public void cadastrar(Clientes cliente)
+        public void Cadastrar(Clientes cliente)
         {
-            using (MySqlConnection conn = _db.GetConnection())
+            using (var conn = _db.GetConnection())
             {
-                string Sql = @"insert into Usuarios (Nome, Email, Cpf, Telefone, Senha)
-                                values (@nome, @email, @cpf, @telefone, @senha)";
-                MySqlCommand cmd = new MySqlCommand(Sql, conn);
-                cmd.Parameters.Add("@nome", MySqlDbType.VarChar).Value = cliente.nome;
-                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = cliente.email;
-                cmd.Parameters.Add("@telefone", MySqlDbType.VarChar).Value = cliente.telefone;
-                cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = cliente.senha;
-                cmd.Parameters.Add("@cpf", MySqlDbType.VarChar).Value = cliente.CPF;
+                string sql = @"INSERT INTO Usuarios (Nome, Email, Cpf, Telefone, Senha, Adm) 
+                               VALUES (@nome, @email, @cpf, @telefone, @senha, @adm)";
+
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@nome", cliente.Nome);
+                cmd.Parameters.AddWithValue("@email", cliente.Email);
+                cmd.Parameters.AddWithValue("@cpf", cliente.CPF);
+                cmd.Parameters.AddWithValue("@telefone", cliente.Telefone);
+                cmd.Parameters.AddWithValue("@senha", cliente.Senha);
+                cmd.Parameters.AddWithValue("@adm", cliente.Adm);
+
                 cmd.ExecuteNonQuery();
             }
         }
 
         public Clientes Login(string email, string senha)
         {
-            using (MySqlConnection conn = _db.GetConnection())
+            using (var conn = _db.GetConnection())
             {
-                string sql = "select * from Usuarios where Email = @email and Senha = @senha";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                string sql = "SELECT * FROM Usuarios WHERE Email = @Email AND Senha = @Senha";
 
-                cmd.Parameters.Add("@email", MySqlDbType.VarChar).Value = email;
-                cmd.Parameters.Add("@senha", MySqlDbType.VarChar).Value = senha;
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Senha", senha);
 
-                MySqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-                Clientes Adm = new Clientes();
-
-                while (dr.Read())
+                using (var reader = cmd.ExecuteReader())
                 {
-                    Adm.email = Convert.ToString(dr["Email"]);
-                    Adm.senha = Convert.ToString(dr["Senha"]);
-                    Adm.idCliente = dr.GetInt32("Id_Usuario");
-                    Adm.adm = dr.GetBoolean("Adm");
+                    if (reader.Read())
+                    {
+                        return new Clientes
+                        {
+                            IdCliente = Convert.ToInt32(reader["Id_Usuario"]),
+                            Nome = reader["Nome"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Senha = reader["Senha"].ToString(),
+                            Telefone = reader["Telefone"].ToString(),
+                            CPF = reader["Cpf"].ToString(),
+                            Adm = Convert.ToBoolean(reader["Adm"])
+                        };
+                    }
                 }
-                return Adm;
             }
+
+            return null;
+        }
+
+        public Clientes BuscarPorEmail(string email)
+        {
+            using (var conn = _db.GetConnection())
+            {
+                string sql = "SELECT * FROM Usuarios WHERE Email = @Email";
+
+                var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new Clientes
+                        {
+                            IdCliente = Convert.ToInt32(reader["Id_Usuario"]),
+                            Nome = reader["Nome"].ToString(),
+                            Email = reader["Email"].ToString(),
+                            Senha = reader["Senha"].ToString(),
+                            Telefone = reader["Telefone"].ToString(),
+                            CPF = reader["Cpf"].ToString(),
+                            Adm = Convert.ToBoolean(reader["Adm"])
+                        };
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

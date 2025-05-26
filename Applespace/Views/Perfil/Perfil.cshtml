@@ -1,0 +1,27 @@
+﻿@model Applespace.Models.Clientes
+
+@{
+    ViewData["Title"] = "Meu Perfil";
+    Layout = "_LayoutLogin";
+}
+
+<div class="container mt-5" style="max-width: 600px;">
+    <h2 class="text-center mb-4 fw-bold">Meu Perfil</h2>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
+                <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+                <li class="list-group-item"><strong>Telefone:</strong> @Model.Telefone</li>
+                <li class="list-group-item"><strong>CPF:</strong> @Model.CPF</li>
+                <li class="list-group-item"><strong>Administrador:</strong> @(Model.Adm ? "Sim" : "Não")</li>
+            </ul>
+
+            <div class="mt-4 d-flex gap-2">
+                <a asp-action="AlterarPerfil" class="btn btn-warning w-100">Alterar Dados</a>
+                <a asp-controller="Login" asp-action="Logout" class="btn btn-danger w-100">Sair</a>
+            </div>
+        </div>
+    </div>
+</div>

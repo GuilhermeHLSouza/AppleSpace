@@ -27,8 +27,8 @@ namespace Applespace.Repositorio.Categoria
                     {
                         CateList.Add(new Categorias
                         {
-                            idCategoria = reader.GetInt32("Id_Cate"),
-                            nomeCategoria = reader.GetString("Nome_Cate"),
+                            IdCategoria = reader.GetInt32("Id_Cate"),
+                            NomeCategoria = reader.GetString("Nome_Cate"),
                         });
                     }
                 }

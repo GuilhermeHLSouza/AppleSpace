@@ -75,16 +75,16 @@ namespace Applespace.Repositorio.Carrinho
                     {
                         Carrinhos c = new Carrinhos
                         {
-                            idCarrinho = reader.GetInt32("Id_Carrinho"),
-                            quantidade = reader.GetInt32("Quantidade"),
-                            preco = reader.GetDouble("Valor"),
-                            codBarra = reader.GetInt32("Cod_Barra"),
-                            idCliente = reader.GetInt32("Id_Usuario"),
-                            produtos = new Produtos
+                            IdCarrinho = reader.GetInt32("Id_Carrinho"),
+                            Quantidade = reader.GetInt32("Quantidade"),
+                            Valor = reader.GetDouble("Valor"),
+                            CodBarra = reader.GetInt32("Cod_Barra"),
+                            IdCliente = reader.GetInt32("Id_Usuario"),
+                            Produtos = new Produtos
                             {
-                                nome = reader.GetString("Nome"),
-                                valor = reader.GetDecimal("Preco"),
-                                img = reader.GetString("Img")
+                                Nome = reader.GetString("Nome"),
+                                Valor = reader.GetDecimal("Preco"),
+                                Img = reader.GetString("Img")
                             }
                         };
                         carrinhos.Add(c);

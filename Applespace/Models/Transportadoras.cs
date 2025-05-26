@@ -2,11 +2,10 @@
 {
     public class Transportadoras
     {
-        public string IdTransp { get; set; }
-        public string Name { get; set; }
-        public int Cnpj { get; set; }
+        public int IdTransportadora { get; set; }
+        public string Nome { get; set; }
+        public string Cnpj { get; set; }
         public string Email { get; set; }
-        public int Telefone {  get; set; }
-
+        public string Telefone { get; set; }
     }
 }

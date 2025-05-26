@@ -4,8 +4,9 @@ namespace Applespace.Repositorio.Login
 {
     public interface ILoginRepositorio
     {
-        public Clientes Login(string email, string senha);
-        public void cadastrar(Clientes cliente);
-        public void AtualizarCliente(Clientes clientes);
+        Clientes Login(string email, string senha);
+        void Cadastrar(Clientes cliente);
+        void AtualizarCliente(Clientes cliente);
+        Clientes BuscarPorEmail(string email); // Opcional, mas recomendado
     }
 }

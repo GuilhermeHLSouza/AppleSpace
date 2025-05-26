@@ -1,53 +1,66 @@
-﻿using Applespace.Libraries.LoginClientes;
+﻿using Applespace.Data;
+using Applespace.Libraries.LoginClientes;
 using Applespace.Libraries.Sessao;
 using Applespace.Repositorio.Carrinho;
+using Applespace.Repositorio.Compra;
 using Applespace.Repositorio.Login;
 using Applespace.Repositorio.Produto;
-using Applespace.Data;
+using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
+// Serviços MVC
 builder.Services.AddControllersWithViews();
+
+// Acesso ao HTTP Context
 builder.Services.AddHttpContextAccessor();
 
-// Repositórios e serviços do sistema
+// Registro dos Repositórios
 builder.Services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
 builder.Services.AddScoped<ILoginRepositorio, LoginRepositorio>();
 builder.Services.AddScoped<ICarrinhoRepositorio, CarrinhoRepositorio>();
+builder.Services.AddScoped<ICompraRepositorio, CompraRepositorio>();
 
-// Registro do banco de dados (IMPORTANTE: antes do builder.Build())
+// Banco de Dados
 builder.Services.AddTransient<Database>();
 
-// Sessão e login de clientes
-builder.Services.AddSingleton<Sessao, Sessao>();
-builder.Services.AddScoped<LoginClientes, LoginClientes>();
+// Sessão e Login
+builder.Services.AddSingleton<Sessao>();
+builder.Services.AddScoped<LoginClientes>();
 
+// Sessão
 builder.Services.AddSession();
 
-// Cria o app depois de todos os serviços registrados
+// Construção do app
 var app = builder.Build();
 
-// Configuração do pipeline HTTP
+// Configurações de ambiente
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
 
+// Middleware padrão
 app.UseStaticFiles();
-app.UseSession();
 app.UseRouting();
+app.UseSession();
 app.UseAuthorization();
 
-// Rota padrão
+// Definição de Rotas
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
-// Aplica a cultura pt-BR globalmente
-var cultureInfo = new CultureInfo("pt-BR");
-CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
-CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
+// Aplicando Cultura pt-BR globalmente
+var defaultCulture = new CultureInfo("pt-BR");
+var localizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture(defaultCulture),
+    SupportedCultures = new List<CultureInfo> { defaultCulture },
+    SupportedUICultures = new List<CultureInfo> { defaultCulture }
+};
+app.UseRequestLocalization(localizationOptions);
 
 app.Run();

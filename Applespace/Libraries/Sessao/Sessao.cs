@@ -1,41 +1,39 @@
-﻿using Org.BouncyCastle.Asn1.IsisMtt.X509;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Applespace.Libraries.Sessao
 {
     public class Sessao
     {
+        private readonly IHttpContextAccessor _context;
 
-        IHttpContextAccessor _context;
         public Sessao(IHttpContextAccessor context)
         {
             _context = context;
         }
 
-        public void Gravar(string key, string valor)
+        public void Criar(string chave, string valor)
         {
-            _context.HttpContext?.Session.SetString(key, valor);
+            _context.HttpContext.Session.SetString(chave, valor);
         }
 
-        public string Consultar(string Key)
+        public void Remover(string chave)
         {
-            return _context.HttpContext.Session.GetString(Key);
+            _context.HttpContext.Session.Remove(chave);
         }
 
-
-        public bool Existe(string Key)
+        public string Consultar(string chave)
         {
-            if (_context.HttpContext?.Session.GetString(Key) == null)
-            {
-                return false;
-            }
-
-            return true;
+            return _context.HttpContext.Session.GetString(chave);
         }
 
+        public bool Existe(string chave)
+        {
+            return _context.HttpContext.Session.GetString(chave) != null;
+        }
 
         public void RemoverTodos()
         {
-            _context.HttpContext?.Session.Clear();
+            _context.HttpContext.Session.Clear();
         }
     }
 }
