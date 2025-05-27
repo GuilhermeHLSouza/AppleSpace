@@ -34,7 +34,7 @@ namespace Applespace.Repositorio.Produto
                             Estoque = reader.GetInt32("Estoque"),
                             IdCate = reader.GetInt32("id_Cate"),
                             Img = reader.GetString("Img"),
-
+                            EmDestaque = reader.GetBoolean("EmDestaque")
                         });
                     }
                 }
