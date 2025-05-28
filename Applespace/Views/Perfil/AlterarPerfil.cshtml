@@ -8,7 +8,9 @@
 <div class="container mt-5" style="max-width: 600px;">
     <h2 class="text-center mb-4 fw-bold">Alterar Dados</h2>
 
-    <form asp-action="AlterarPerfil" method="post">
+    <form asp-action="AlterarPerfil" asp-controller="Perfil" method="post">
+        @Html.AntiForgeryToken()
+
         <div class="form-group mb-3">
             <label>Nome</label>
             <input asp-for="Nome" class="form-control" placeholder="Seu nome completo" required />

@@ -16,7 +16,6 @@ namespace Applespace.Controllers
             _loginRepositorio = loginRepositorio;
         }
 
-        // ✅ Página de Visualização do Perfil
         public IActionResult Perfil()
         {
             var usuario = _loginClientes.GetUsuario();
@@ -29,8 +28,6 @@ namespace Applespace.Controllers
             return View(usuario);
         }
 
-        // ✅ Página de Alteração do Perfil (GET)
-        [HttpGet]
         [HttpGet]
         public IActionResult AlterarPerfil()
         {
@@ -44,10 +41,9 @@ namespace Applespace.Controllers
             return View(usuario);
         }
 
-
-        // ✅ Post da Alteração dos Dados do Perfil
         [HttpPost]
-        public IActionResult Alterar(Clientes cliente)
+        [ValidateAntiForgeryToken]
+        public IActionResult AlterarPerfil(Clientes cliente)
         {
             var usuario = _loginClientes.GetUsuario();
 
@@ -57,8 +53,9 @@ namespace Applespace.Controllers
             }
 
             cliente.IdCliente = usuario.IdCliente;
-            _loginRepositorio.AtualizarCliente(cliente);
+            cliente.Adm = usuario.Adm;
 
+            _loginRepositorio.AtualizarCliente(cliente);
             _loginClientes.Logout();
             _loginClientes.Login(cliente);
 
