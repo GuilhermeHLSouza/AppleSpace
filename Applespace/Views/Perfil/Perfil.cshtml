@@ -17,7 +17,8 @@
                     <h4>Meus Pedidos</h4>
                     <div class="card h-100 shadow">
                         <div class="card-body">
-                            <a href="#" class="d-block text-decoration-none text-dark">Meus pedidos</a>
+                            <a href="#" class="d-block text-decoration-none text-dark">Pedidos em Entrega</a>
+                            <a href="#" class="d-block text-decoration-none text-dark">Histórico de Pedidos</a>
                         </div>
                     </div>
                 </div>
@@ -27,10 +28,21 @@
                     <h4>Meu Cadastro</h4>
                     <div class="card h-100 shadow">
                         <div class="card-body">
-                            <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar dados pessoais</a>
+                            <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar Dados Pessoais</a>
+                            <a href="#" class="d-block text-decoration-none text-dark mb-2">Excluir Perfil</a>
+                            <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none text-dark mb-2">Encerrar Sessão</a>
+
                         </div>
+                    </div>
+                </div>
+
+                <!-- Atendimento ao cliente -->
+                <div class="col-md-6 mt-4 mb-4">
+                    <h4>Atendimento ao Cliente</h4>
+                    <div class="card h-100 shadow">
                         <div class="card-body">
-                            <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none text-dark mb-2">Encerrar sessão</a>
+                            <a href="https://wa.me/5511949589464?text=Ol%C3%A1,%20gostaria%20de%20tirar%20uma%20d%C3%BAvida" class="d-block text-decoration-none text-dark mb-2">SAC</a>
+                            <a href="mailto:mlira3083@gmail.com" class="d-block text-decoration-none text-dark mb-2">Enviem-nos um Email</a>
                         </div>
                     </div>
                 </div>
@@ -39,23 +51,4 @@
     </form>
 </div>
 
-<div class="container mt-5" style="max-width: 600px;">
-    <h2 class="text-center mb-4 fw-bold">Meu Perfil</h2>
 
-    <div class="card shadow">
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
-                <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
-                <li class="list-group-item"><strong>Telefone:</strong> @Model.Telefone</li>
-                <li class="list-group-item"><strong>CPF:</strong> @Model.CPF</li>
-                <li class="list-group-item"><strong>Administrador:</strong> @(Model.Adm ? "Sim" : "Não")</li>
-            </ul>
-
-            <div class="mt-4 d-flex gap-2">
-                <a asp-action="AlterarPerfil" class="btn btn-warning w-100">Alterar Dados</a>
-                <a asp-controller="Login" asp-action="Logout" class="btn btn-danger w-100">Sair</a>
-            </div>
-        </div>
-    </div>
-</div>
