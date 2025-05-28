@@ -5,6 +5,40 @@
     Layout = "_LayoutLogin";
 }
 
+<div class="container mt-5 mb-5 " style="max-width: 800px">
+    <h2 class="text-center mb-4">Olá, @Model.Nome </h2>
+    <h5 class="text-center text-muted small"> Veja as opções da sua conta </h5>
+
+    <form id="form1" runat="server">
+        <div class="container py-4">
+            <div class="row">
+                <!-- Meus Pedidos -->
+                <div class="col-md-6 mb-4">
+                    <h4>Meus Pedidos</h4>
+                    <div class="card h-100 shadow">
+                        <div class="card-body">
+                            <a href="#" class="d-block text-decoration-none text-dark">Meus pedidos</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Meu Cadastro -->
+                <div class="col-md-6 mb-4">
+                    <h4>Meu Cadastro</h4>
+                    <div class="card h-100 shadow">
+                        <div class="card-body">
+                            <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar dados pessoais</a>
+                        </div>
+                        <div class="card-body">
+                            <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none text-dark mb-2">Encerrar sessão</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 <div class="container mt-5" style="max-width: 600px;">
     <h2 class="text-center mb-4 fw-bold">Meu Perfil</h2>
 
