@@ -57,13 +57,16 @@ namespace Applespace.Repositorio.Login
             }
         }
 
-        public Clientes Login(string email, string senha)
+        public Clientes Login(string email, string senha, string cpf)
         {
             using (var conn = _db.GetConnection())
             {
-                string sql = "SELECT * FROM Usuarios WHERE Email = @Email AND Senha = @Senha";
+                string sql = "SELECT * FROM Usuarios WHERE (Email = @login OR Cpf = @login) AND Senha = @Senha";
+                
+
 
                 var cmd = new MySqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@login", email);
                 cmd.Parameters.AddWithValue("@Email", email);
                 cmd.Parameters.AddWithValue("@Senha", senha);
 

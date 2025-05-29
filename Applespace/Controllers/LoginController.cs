@@ -22,7 +22,7 @@ namespace Applespace.Controllers
         [HttpPost]
         public IActionResult Login(Clientes cliente)
         {
-            var usuarioDB = _loginRepositorio.Login(cliente.Email, cliente.Senha);
+            var usuarioDB = _loginRepositorio.Login(cliente.Email, cliente.Senha, cliente.CPF);
 
             if (usuarioDB != null)
             {

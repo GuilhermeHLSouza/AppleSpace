@@ -5,30 +5,81 @@
     Layout = "_LayoutLogin";
 }
 
-<div class="container mt-5" style="max-width: 500px;">
-    <h2 class="text-center mb-4">Login</h2>
-
-    @if (ViewData["msg"] != null)
-    {
-        <div class="alert alert-danger">@ViewData["msg"]</div>
+<style>
+    .login-card {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.05);
     }
 
-    <form asp-action="Login" method="post">
-        <div class="form-group mb-3">
-            <label asp-for="Email">Email</label>
-            <input asp-for="Email" class="form-control" placeholder="Digite seu email" />
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        border-radius: 12px;
+        padding: 12px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #0c52d3;
+        }
+
+    .illustration {
+        max-width: 85%;
+    }
+
+    .login-link {
+        color: #0E61FE;
+        font-weight: 500;
+    }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="container my-5">
+    <div class="row justify-content-center align-items-center">
+        <!-- IMAGEM À ESQUERDA -->
+        <div class="col-md-6 d-none d-md-block text-center">
+            <img src="~/img/undraw_secure-login_m11a.svg" alt="Login Illustration" class="illustration" />
         </div>
 
-        <div class="form-group mb-3">
-            <label asp-for="Senha">Senha</label>
-            <input asp-for="Senha" class="form-control" placeholder="Digite sua senha" type="password" />
+        <!-- FORMULÁRIO -->
+        <div class="col-md-6 col-lg-5">
+            <div class="login-card">
+                <h2 class="text-center fw-bold mb-4">Login</h2>
+
+                @if (ViewData["msg"] != null)
+                {
+                    <div class="alert alert-danger">@ViewData["msg"]</div>
+                }
+
+                <form asp-action="Login" method="post">
+                    <label>CPF ou Email</label>
+                    <input asp-for="Email" class="form-control" placeholder="Digite seu CPF ou Email" />
+
+
+                    <div class="form-group mb-4">
+                        <label asp-for="Senha">Senha</label>
+                        <input asp-for="Senha" class="form-control" placeholder="Digite sua senha" type="password" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Entrar</button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <span>Não tem uma conta?</span>
+                    <a href="@Url.Action("Cadastrar", "Login")" class="login-link">Cadastre-se aqui</a>
+                </div>
+            </div>
         </div>
-
-        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-    </form>
-
-    <div class="text-center mt-3">
-        <span>Não tem uma conta?</span>
-        <a href="@Url.Action("Cadastrar", "Login")">Cadastre-se aqui</a>
     </div>
 </div>
