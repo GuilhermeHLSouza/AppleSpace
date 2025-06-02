@@ -34,6 +34,12 @@
         display: flex;
     }
 
+    .corDelet{
+        color: red;
+    }
+    .corDelet:hover{
+        color: red;
+    }
 </style>
 
 <div class="container mt-5 mb-5 custom-bg " style="max-width: 800px">
@@ -62,8 +68,8 @@
                                     </ul>
                                 </div>
                                 <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar Dados Pessoais</a>
-                                <a href="#" class="d-block text-decoration-none text-dark mb-2">Excluir Perfil</a>
-                                <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none text-dark mb-2">Encerrar Sessão</a>
+                                <a href="#" class="d-block text-decoration-none mb-2 corDelet">Excluir Perfil</a>
+                                <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none mb-2 corDelet">Encerrar Sessão</a>
                             </div>
                         </div>
                     </div>
