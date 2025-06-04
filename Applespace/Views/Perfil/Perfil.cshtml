@@ -4,115 +4,155 @@
     ViewData["Title"] = "Meu Perfil";
     Layout = "_LayoutLogin";
 }
+
 <style>
-    body{
+    body {
         background-color: #fff;
     }
 
-    .custom-card{
+    .custom-card {
         border-radius: 15px;
-        height: 100%;
+        background-color: #fff;
+        box-shadow: 0 0 8px rgba(0,0,0,0.05);
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 250px; /* Tamanho fixo para uniformizar */
     }
 
-    .custom-bg{
+    .custom-bg {
         border-radius: 10px;
         background-color: #f7f7f7;
-
+        padding: 20px;
     }
 
-    h4 img{
-        height:50px;
+    h4 img {
+        height: 24px;
+        margin-left: 8px;
     }
 
-    .row > .col-md-6 {
+    .section-header {
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+        text-align: center;
+    }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .section-header h6 {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+    .corDelet {
+        color: red;
+    }
+
+        .corDelet:hover {
+            color: red;
+        }
+
+    .row-custom {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .col-custom {
+        flex: 1 1 45%;
+        min-width: 250px;
         display: flex;
         flex-direction: column;
     }
 
-    /* Ajusta altura das colunas para que fiquem iguais dentro da linha */
-    .col-md-6 {
+    .card-body {
+        flex: 1;
         display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
     }
 
-    .corDelet{
-        color: red;
+    @@media (max-width: 576px) {
+        .col-custom
+
+    {
+        flex: 1 1 100%;
     }
-    .corDelet:hover{
-        color: red;
+
     }
 </style>
 
-<div class="container mt-5 mb-5 custom-bg " style="max-width: 800px">
-        <h2 class="text-center mb-4">Olá, @Model.Nome </h2>
-        <h5 class="text-center text-muted small"> Veja as opções da sua conta </h5>
+<div class="container mt-5 mb-5 custom-bg" style="max-width: 800px;">
+    <div class="section-header">
+        <h2>Olá, @Model.Nome</h2>
+        <h6>Veja as opções da sua conta</h6>
+    </div>
 
-        <form id="form1" runat="server">
-            <div class="container py-4">
-                <div class="row">
-
-                    <!-- Meu Cadastro -->
-                    <div class="col-md-6 mb-5 ">
-                        <h4>Meu Cadastro <img  src="~/Img/perfil.png" alt="Alternate Text" />  </h4>
-                        <div class="card  shadow custom-card"  >
-                            <div class="card-body">
-                                <a class="d-block text-decoration-none text-dark mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                        Dados Cadastrados
-                                </a>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
-                                        <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
-                                        <li class="list-group-item"><strong>Telefone:</strong> @Model.Telefone</li>
-                                        <li class="list-group-item"><strong>CPF:</strong> @Model.CPF</li>
-                                        <li class="list-group-item"><strong>Administrador:</strong> @(Model.Adm ? "Sim" : "Não")</li>
-                                    </ul>
-                                </div>
-                                <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar Dados Pessoais</a>
-                                <a href="#" class="d-block text-decoration-none mb-2 corDelet">Excluir Perfil</a>
-                                <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none mb-2 corDelet">Encerrar Sessão</a>
-                            </div>
+    <div class="container py-4">
+        <div class="row-custom">
+            <!-- Meu Cadastro -->
+            <div class="col-custom">
+                <h4>Meu Cadastro <img src="~/Img/perfil.png" alt="Cadastro" /></h4>
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <a class="d-block text-decoration-none text-dark mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCadastro" aria-expanded="false" aria-controls="collapseCadastro">
+                            Dados Cadastrados
+                        </a>
+                        <div id="collapseCadastro" class="accordion-collapse collapse">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Nome:</strong> @Model.Nome</li>
+                                <li class="list-group-item"><strong>Email:</strong> @Model.Email</li>
+                                <li class="list-group-item"><strong>Telefone:</strong> @Model.Telefone</li>
+                                <li class="list-group-item"><strong>CPF:</strong> @Model.CPF</li>
+                                <li class="list-group-item"><strong>Administrador:</strong> @(Model.Adm ? "Sim" : "Não")</li>
+                            </ul>
                         </div>
-                    </div>
-
-                    <!-- Meus Pedidos -->
-                    <div class="col-md-6 mb-5 ">
-                    <h4>Meus Pedidos <img src="~/Img/caixa.png" alt="Alternate Text" /></h4>
-                        <div class="card  shadow custom-card">
-                            <div class="card-body">
-                                <a href="#" class="d-block text-decoration-none text-dark">Pedidos em Entrega</a>
-                                <a href="#" class="d-block text-decoration-none text-dark">Histórico de Pedidos</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Atendimento ao cliente -->
-                    <div class="col-md-6  mb-4 ">
-                    <h4>Serviços <img src="~/Img/apoio-suporte.png" alt="Alternate Text" /></h4>
-                        <div class="card  shadow custom-card">
-                            <div class="card-body">
-                                 <a href="https://wa.me/5511949589464?text=Ol%C3%A1,%20gostaria%20de%20tirar%20uma%20d%C3%BAvida" class="d-block text-decoration-none text-dark mb-2">SAC</a>
-                                 <a href="mailto:mlira3083@gmail.com" class="d-block text-decoration-none text-dark mb-2">Enviem-nos um Email</a>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <!-- Pagamentos  -->
-                    <div class="col-md-6  mb-4 ">
-                        <h4>Pagamentos <img src="~/Img/pagamento.png" alt="Alternate Text" /></h4>
-                        <div class="card  shadow custom-card">
-                            <div class="card-body">
-                                <a href="#" class="d-block text-decoration-none text-dark">Cartões</a>
-                                <a href="#" class="d-block text-decoration-none text-dark">Reembolso e Devolução </a>
-                                <a href="#" class="d-block text-decoration-none text-dark">Vale-Troca </a>
-                            </div>
-                        </div>
+                        <a href="AlterarPerfil" class="d-block text-decoration-none text-dark mb-2">Alterar Dados Pessoais</a>
+                        <a href="#" class="d-block text-decoration-none mb-2 corDelet">Excluir Perfil</a>
+                        <a asp-controller="Login" asp-action="Logout" class="d-block text-decoration-none mb-2 corDelet">Encerrar Sessão</a>
                     </div>
                 </div>
             </div>
-        </form>
+
+            <!-- Meus Pedidos -->
+            <div class="col-custom">
+                <h4>Meus Pedidos <img src="~/Img/caixa.png" alt="Pedidos" /></h4>
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <a href="#" class="d-block text-decoration-none text-dark">Pedidos em Entrega</a>
+                        <a href="#" class="d-block text-decoration-none text-dark">Histórico de Pedidos</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suporte -->
+            <div class="col-custom">
+                <h4>Suporte <img src="~/Img/apoio-suporte.png" alt="Suporte" /></h4>
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <a href="https://wa.me/5511949589464?text=Olá,%20gostaria%20de%20tirar%20uma%20dúvida" class="d-block text-decoration-none text-dark mb-2">SAC</a>
+                        <a href="mailto:mlira3083@gmail.com" class="d-block text-decoration-none text-dark mb-2">Enviar Email</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagamentos -->
+            <div class="col-custom">
+                <h4>Pagamentos <img src="~/Img/pagamento.png" alt="Pagamentos" /></h4>
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <a href="#" class="d-block text-decoration-none text-dark">Cartões</a>
+                        <a href="#" class="d-block text-decoration-none text-dark">Reembolso e Devolução</a>
+                        <a href="#" class="d-block text-decoration-none text-dark">Vale-Troca</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
